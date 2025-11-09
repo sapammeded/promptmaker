@@ -1,0 +1,3031 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI PROMPT MASTER v16.0 - AI BRAIN ENGINE + THEMATIC CORE</title>
+    <style>
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #1e1e2d;
+            --accent: #2c2c3e;
+            --gold: #ffc300;
+            --neon: #00ffff;
+            --cyber: #ff00ff;
+            --quantum: #00ff41;
+            --matrix: #00ff41;
+            --hologram: #4fc3f7;
+            --text: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --danger: #ff5252;
+            --info: #4fc3f7;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary), #000, var(--secondary));
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            scroll-behavior: smooth;
+        }
+
+        .quantum-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 97%, rgba(0, 255, 65, 0.05) 100%),
+                linear-gradient(0deg, transparent 97%, rgba(0, 255, 65, 0.05) 100%);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        /* NOTIFICATION TOAST SYSTEM */
+        .notification-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            background: var(--quantum);
+            color: var(--primary);
+            font-weight: bold;
+            z-index: 10000;
+            box-shadow: 0 5px 20px rgba(0, 255, 65, 0.6);
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            border: 2px solid var(--neon);
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .notification-toast.show {
+            transform: translateX(0);
+        }
+
+        .notification-toast.success { 
+            background: var(--quantum); 
+            color: var(--primary);
+            border-color: var(--quantum);
+        }
+        .notification-toast.warning { 
+            background: var(--gold); 
+            color: var(--primary);
+            border-color: var(--gold);
+        }
+        .notification-toast.error { 
+            background: var(--danger); 
+            color: white;
+            border-color: var(--danger);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(10, 10, 10, 0.8);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 2px solid var(--neon);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            font-size: 3.8em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--neon), var(--gold), var(--cyber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: var(--gold);
+            border-left: 5px solid var(--gold);
+            padding-left: 15px;
+            margin-bottom: 25px;
+            text-shadow: 0 0 5px rgba(255, 195, 0, 0.5);
+        }
+        
+        .quantum-tag, .feature-tag {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            margin: 0 8px 10px 0;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .quantum-tag {
+             background: var(--cyber);
+            color: white;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+        .feature-tag {
+            background: rgba(0, 255, 255, 0.1);
+            color: var(--neon);
+            border: 1px solid var(--neon);
+        }
+        
+        .instruction-box {
+            background: rgba(79, 195, 247, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 1px solid var(--info);
+            box-shadow: 0 0 15px rgba(79, 195, 247, 0.3);
+        }
+        .instruction-box h3 {
+            color: var(--info);
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+
+        .ai-recommendation {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--quantum);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.3); }
+            50% { box-shadow: 0 0 15px rgba(0, 255, 65, 0.6); }
+            100% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.3); }
+        }
+
+        .input-guide {
+            background: rgba(255, 195, 0, 0.1);
+            border: 1px solid var(--gold);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+
+        .level-indicator {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .level {
+            background: var(--accent);
+            padding: 30px; 
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            border: 3px solid var(--accent);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .level:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+            border-color: var(--neon);
+        }
+        .level.selected {
+            border-color: var(--quantum);
+            background: linear-gradient(145deg, rgba(0, 255, 65, 0.1), rgba(0, 0, 0, 0.2));
+            box-shadow: 0 0 30px var(--quantum);
+            animation: pulse-border 1.5s infinite alternate;
+        }
+        .level h3 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, var(--gold), var(--quantum));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 8px rgba(255, 195, 0, 0.3);
+        }
+        .level p {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+        @keyframes pulse-border {
+            from { box-shadow: 0 0 30px var(--quantum); }
+            to { box-shadow: 0 0 40px var(--quantum), 0 0 10px rgba(0, 255, 65, 0.8); }
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .section {
+            background: var(--secondary);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: var(--hologram);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid var(--accent);
+            background-color: var(--primary);
+            color: var(--text);
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+            resize: vertical;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--neon);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: var(--accent);
+            border: 2px solid transparent;
+            color: var(--text-secondary);
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            color: var(--neon);
+        }
+
+        .tab-btn.active {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: var(--neon);
+            color: var(--neon);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--secondary);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+        
+        .apply-btn {
+            background: linear-gradient(45deg, var(--gold), var(--neon));
+            color: var(--primary);
+            border: none;
+            padding: 18px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 195, 0, 0.4);
+        }
+        
+        .apply-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 195, 0, 0.6);
+        }
+
+        .setting-status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .status-applied {
+            background: rgba(0, 255, 65, 0.2);
+            color: var(--quantum);
+            border: 1px solid var(--quantum);
+        }
+        .status-pending {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+        .status-danger {
+            background: rgba(255, 82, 82, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .style-selector-grid, .ai-platform-selector, .camera-selector-grid, .ratio-selector-grid, .camera-builder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .style-card, .platform-card, .camera-card, .ratio-card, .modular-card {
+            background: var(--accent);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+            text-align: left;
+        }
+        .style-card p, .platform-card p, .ratio-card p, .camera-card p, .modular-card p {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .ratio-card small, .camera-card small, .modular-card small {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        .style-card.selected {
+            border-color: var(--cyber);
+            background: rgba(255, 0, 255, 0.1);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.6);
+        }
+        .platform-card.selected {
+            border-color: var(--neon);
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+        }
+        .modular-card.selected {
+            border-color: var(--gold);
+            background: rgba(255, 195, 0, 0.1);
+            box-shadow: 0 0 15px rgba(255, 195, 0, 0.6);
+        }
+         .ratio-card.selected {
+            border-color: var(--quantum);
+            background: rgba(0, 255, 65, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.6);
+        }
+
+        .platform-icon {
+            font-size: 1.5em;
+            margin-right: 5px;
+        }
+
+        #promptOutput {
+            min-height: 250px;
+            background: rgba(0, 0, 0, 0.6);
+            border-left: 5px solid var(--gold);
+            font-family: 'Consolas', 'Courier New', monospace;
+            line-height: 1.6;
+            font-size: 15px;
+            color: var(--quantum);
+            margin-top: 10px;
+        }
+        
+        .quantum-btn {
+            background: linear-gradient(45deg, var(--quantum), var(--neon));
+            color: var(--primary);
+            padding: 20px 35px;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: bold;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 255, 65, 0.5);
+        }
+        .quantum-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(0, 255, 65, 0.8);
+        }
+        
+        .btn-copy {
+            background: var(--hologram);
+            color: var(--primary);
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .btn-copy:hover {
+            background: var(--info);
+        }
+        
+        .intensity-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 12px;
+            background: var(--accent);
+            outline: none;
+            opacity: 0.9;
+            transition: opacity .2s;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+        .intensity-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--cyber);
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--cyber);
+        }
+        .intensity-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--cyber);
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--cyber);
+        }
+        .intensity-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            color: var(--text-secondary);
+        }
+        .quantum-intensity h3 {
+            color: var(--cyber);
+        }
+
+        .subject-weight-slider::-webkit-slider-thumb {
+            background: var(--gold);
+            box-shadow: 0 0 10px var(--gold);
+        }
+        .subject-weight-slider::-moz-range-thumb {
+            background: var(--gold);
+            box-shadow: 0 0 10px var(--gold);
+        }
+        
+        .transformation-mode {
+            background: rgba(255, 195, 0, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid var(--gold);
+        }
+
+        /* CONFLICT DETECTOR YANG BENERAN BEKERJA */
+        .conflict-detector {
+            background: rgba(255, 82, 82, 0.1);
+            border: 2px solid var(--danger);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            animation: pulse-warning 2s infinite;
+        }
+
+        @keyframes pulse-warning {
+            0% { box-shadow: 0 0 10px rgba(255, 82, 82, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(255, 82, 82, 0.6); }
+            100% { box-shadow: 0 0 10px rgba(255, 82, 82, 0.3); }
+        }
+
+        .conflict-item {
+            background: rgba(255, 82, 82, 0.15);
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--danger);
+        }
+
+        .solution-item {
+            background: rgba(0, 255, 65, 0.15);
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--quantum);
+        }
+
+        .suggestion-box {
+            background: rgba(255, 195, 0, 0.1);
+            border: 2px solid var(--gold);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .ai-brain-active {
+            border: 3px solid var(--quantum) !important;
+            background: rgba(0, 255, 65, 0.15) !important;
+            animation: brain-pulse 2s infinite !important;
+        }
+
+        @keyframes brain-pulse {
+            0% { box-shadow: 0 0 10px rgba(0, 255, 65, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(0, 255, 65, 0.7); }
+            100% { box-shadow: 0 0 10px rgba(0, 255, 65, 0.3); }
+        }
+
+        @media (max-width: 1000px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 2.5em;
+            }
+            .level-indicator {
+                gap: 10px;
+            }
+            #multi-input-container {
+                grid-template-columns: 1fr !important;
+            }
+            .notification-toast {
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+        }
+
+        /* TAMBAHAN UNTUK QUALITY BOOSTER */
+        .quality-booster {
+            background: rgba(0, 255, 65, 0.1);
+            border: 2px solid var(--quantum);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            animation: pulse-glow 2s infinite;
+        }
+
+        .quality-option {
+            background: var(--accent);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .quality-option.selected {
+            border-color: var(--quantum);
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+        }
+
+        .quality-option h4 {
+            color: var(--quantum);
+            margin-bottom: 5px;
+        }
+
+        /* TAMBAHAN UNTUK CAMERA ANGLES */
+        .angle-details {
+            margin-top: 8px;
+            padding: 8px;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 5px;
+            font-size: 0.8em;
+            border-left: 3px solid var(--neon);
+        }
+
+        /* ULTIMATE ENGINE BUTTON */
+        .ultimate-btn {
+            background: linear-gradient(45deg, var(--quantum), var(--cyber), var(--neon));
+            color: black;
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px 0;
+            width: 100%;
+            font-size: 1.3em;
+            box-shadow: 0 5px 25px rgba(0, 255, 65, 0.6);
+            transition: all 0.3s ease;
+        }
+        .ultimate-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 35px rgba(0, 255, 65, 0.8);
+        }
+    </style>
+</head>
+<body>
+
+<div class="quantum-grid"></div>
+<div class="container">
+    <header>
+        <h1>AI PROMPT MASTER v16.0 🧠</h1>
+        <p>AI BRAIN ENGINE + THEMATIC CORE - **PROMPT EXPERT OTOMATIS**</p>
+        <div>
+            <span class="quantum-tag">AI BRAIN ENGINE</span>
+            <span class="quantum-tag">THEMATIC CORE</span>
+            <span class="feature-tag">SMART FILTERING</span>
+            <span class="feature-tag">NO REDUNDANCY</span>
+            <span class="feature-tag">CONFLICT DETECTOR</span>
+            <span class="feature-tag">16K QUALITY BOOSTER</span>
+            <span class="feature-tag" style="background: var(--cyber); color: white;">ULTIMATE ENGINE</span>
+        </div>
+    </header>
+
+    <div class="section">
+        <h2>1️⃣ CORE PROMPT & AI BRAIN ENGINE</h2>
+        
+        <div class="instruction-box">
+            <h3>💡 CARA KERJA AI BRAIN ENGINE v16.0:</h3>
+            <ol>
+                <li>**PILIH MODE INPUT:** Detail (3 bagian) atau Cepat (1 textarea)</li>
+                <li>**ISI DESKRIPSI:** Masukkan detail sesuai petunjuk di setiap bagian</li>
+                <li>**ATUR BOBOT:** Subject Weight untuk prioritas subjek utama (1.0-2.0)</li>
+                <li>**NEGATION ENGINE:** Isi negative prompt untuk hindari distorsi</li>
+                <li>**SET & APPLY:** Atur semua setting di tab 2 dan klik APPLY</li>
+                <li>**GENERATE:** Klik GENERATE untuk dapatkan prompt expert otomatis!</li>
+            </ol>
+            <p><strong>NEW:</strong> Smart Filtering mencegah konflik kamera/gaya & menghilangkan redundansi!</p>
+        </div>
+        
+        <!-- QUALITY BOOSTER -->
+        <div class="quality-booster">
+            <h3 style="color: var(--quantum); margin-bottom: 15px;">🚀 16K QUALITY BOOSTER ENGINE</h3>
+            <p>Pilih preset kualitas untuk memastikan gambar TIDAK NGEBLUR dan mencapai kualitas maksimal:</p>
+            
+            <div class="quality-option selected" onclick="selectQualityOption(this, 'ultra')">
+                <h4>🔥 ULTRA QUALITY (16K MAX)</h4>
+                <p>Kualitas tertinggi dengan detail maksimal, sharpness ekstrem, dan tekstur ultra-realistic</p>
+                <small>Rekomendasi untuk hasil terbaik</small>
+            </div>
+            
+            <div class="quality-option" onclick="selectQualityOption(this, 'high')">
+                <h4>⚡ HIGH QUALITY (8K)</h4>
+                <p>Kualitas tinggi dengan detail sangat baik dan sharpness optimal</p>
+            </div>
+            
+            <div class="quality-option" onclick="selectQualityOption(this, 'balanced')">
+                <h4>⚖️ BALANCED (4K)</h4>
+                <p>Kualitas baik dengan kompromi antara detail dan kecepatan generate</p>
+            </div>
+        </div>
+
+        <!-- CONFLICT DETECTOR YANG BENERAN BEKERJA -->
+        <div id="conflict-detector-container" class="conflict-detector">
+            <h3 style="color: var(--danger); margin-bottom: 15px;">🚨 SMART CONFLICT DETECTOR ACTIVE</h3>
+            <div id="conflict-list">✅ Sistem siap mendeteksi konflik...</div>
+            <div id="solution-list"></div>
+            <div id="suggestion-box" class="suggestion-box"></div>
+        </div>
+
+        <div class="form-group">
+            <label>AI Intelligence Level:</label>
+            <div class="level-indicator">
+                <div class="level" id="level-beginner" onclick="selectLevel(this, 'beginner')">
+                    <h3>BASIC (Standard)</h3>
+                    <p>AI Enhancement Minimal.</p>
+                </div>
+                <div class="level" id="level-master" onclick="selectLevel(this, 'master')">
+                    <h3>MASTER (Smart)</h3>
+                    <p>AI Context Detection & Enhancement.</p>
+                </div>
+                <div class="level selected" id="level-quantum" onclick="selectLevel(this, 'quantum')">
+                    <h3>🔥 QUANTUM (AI Brain)</h3>
+                    <p>**Full AI Brain Engine + Smart Filtering!**</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-grid">
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label>Pilih Mode Input:</label>
+                <div class="tab-buttons">
+                    <button class="tab-btn active" id="mode-multi-btn" onclick="switchInputMode('multi')">Mode Detail (Structured)</button>
+                    <button class="tab-btn" id="mode-single-btn" onclick="switchInputMode('single')">Mode Cepat (Single Prompt)</button>
+                </div>
+            </div>
+
+            <!-- MULTI MODE - STRUCTURED INPUT -->
+            <div id="multi-input-container" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; grid-column: 1 / -1;">
+                <div class="form-group">
+                    <label>🎯 SUBJEK UTAMA (WAJIB):</label>
+                    <div class="input-guide">
+                        <strong>Deskripsi objek/karakter utama:</strong><br>
+                        • Karakter: "ksatria berbaju besi hitam"<br>
+                        • Objek: "mobil sport vintage merah"<br>
+                        • Hewan: "naga emas dengan sayap lebar"<br>
+                        • Wajib detail: warna, bentuk, material
+                    </div>
+                    <textarea id="main-subject" placeholder="Contoh: Seekor naga emas raksasa dengan sisik berkilauan dan mata menyala..." oninput="runConflictDetection()"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>⚡ AKSI / INTERAKSI:</label>
+                    <div class="input-guide">
+                        <strong>Apa yang dilakukan subjek utama:</strong><br>
+                        • Posisi: "sedang terbang melingkar"<br>
+                        • Aksi: "mengejar ksatria"<br> 
+                        • Ekspresi: "dengan raungan menggelegar"<br>
+                        • Interaksi: "memegang pedang bercahaya"
+                    </div>
+                    <textarea id="action" placeholder="Contoh: sedang terbang mengitari puncak gunung dengan raungan menggelegar..." oninput="runConflictDetection()"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>🌍 LINGKUNGAN / LATAR:</label>
+                    <div class="input-guide">
+                        <strong>Lokasi & atmosfer scene:</strong><br>
+                        • Tempat: "puncak gunung bersalju"<br>
+                        • Cuaca: "langit badai petir merah"<br>
+                        • Waktu: "saat matahari terbenam"<br>
+                        • Atmosfer: "kabut tebal, cahaya mistis"
+                    </div>
+                    <textarea id="environment" placeholder="Contoh: Puncak gunung vulkanik dengan lava mengalir, langit berwarna ungu-oranye saat sunset..." oninput="runConflictDetection()"></textarea>
+                </div>
+
+                <div class="form-group quantum-intensity" style="grid-column: 1 / -1;">
+                    <label>⚙️ SUBJECT PRIORITY WEIGHT (Bobot Subjek Utama):</label>
+                    <input type="range" id="subjectWeightSlider" class="intensity-slider subject-weight-slider" min="1.0" max="2.0" step="0.1" value="1.5" oninput="updateSubjectWeight(this.value)">
+                    <div class="intensity-labels">
+                        <span>Normal (1.0)</span>
+                        <span id="subjectWeightValue">1.5</span>
+                        <span>Max Priority (2.0)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SINGLE MODE - QUICK INPUT -->
+            <div id="single-input-container" style="display: none; grid-column: 1 / -1;">
+                <div class="form-group">
+                    <label>💬 PROMPT CEPAT (AI akan otomatis expand):</label>
+                    <div class="input-guide">
+                        <strong>Masukkan deskripsi singkat - AI Brain akan otomatis mengembangkannya:</strong><br>
+                        • Contoh: "naga dan ksatria bertarung di gunung"<br>
+                        • Contoh: "portrait wanita dengan rambir merah di studio"<br>
+                        • Contoh: "mobil sport di jalanan hujan malam"<br>
+                        • AI akan detect jenis subjek & auto-enhance!
+                    </div>
+                    <textarea id="single-input-area" rows="6" placeholder="Contoh: naga emas dan ksatria bertarung di puncak gunung berapi..." oninput="runConflictDetection()"></textarea>
+                </div>
+                <div class="form-group quantum-intensity">
+                    <label>⚙️ SUBJECT PRIORITY WEIGHT (Bobot Kalimat Pertama):</label>
+                    <input type="range" id="singleSubjectWeightSlider" class="intensity-slider subject-weight-slider" min="1.0" max="2.0" step="0.1" value="1.5" oninput="updateSubjectWeight(this.value)">
+                    <div class="intensity-labels">
+                        <span>Normal (1.0)</span>
+                        <span id="singleSubjectWeightValue">1.5</span>
+                        <span>Max Priority (2.0)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label style="color: var(--danger); font-size: 1.2em;">🚫 NEGATION ENGINE (ANTI-DISTORTION - WAJIB):</label>
+                <textarea id="negative-prompt" rows="4" placeholder="Contoh: (deformed, distorted, blurry), bad anatomy, extra limbs, poorly drawn hands..." style="border: 2px solid var(--danger); background-color: rgba(255, 82, 82, 0.1);">((deformed)), (distorted), (blurry), bad anatomy, extra limbs, poorly drawn hands, mutated hands, poorly drawn face, mutation, bad proportions, extra limbs, cloned face, disfigured, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, username, signature, text, watermark, soft focus, out of focus, motion blur, lens blur, chromatic aberration, noise, grain, JPEG artifacts, low resolution, pixelated</textarea>
+                <button class="apply-btn" onclick="applyNegativePrompt()">
+                    ❌ APPLY NEGATION ENGINE
+                </button>
+                <div class="setting-status status-danger" id="negation-status">⚠️ Pending: Isi dan Click APPLY Negation Engine!</div>
+            </div>
+
+        </div>
+
+        <!-- ULTIMATE ENGINE BUTTON -->
+        <button class="ultimate-btn" onclick="generateUltimatePrompt()">
+            🚀 ACTIVATE ULTIMATE PROMPT ENGINE
+        </button>
+
+        <button class="quantum-btn" onclick="generatePrompt()">
+            🧠 GENERATE AI EXPERT PROMPT
+        </button>
+
+        <div class="form-group">
+            <label>🎯 HASIL AI EXPERT PROMPT:</label>
+            <textarea id="promptOutput" rows="12" readonly>AI Brain Engine akan menghasilkan prompt expert di sini...</textarea>
+            <button class="btn btn-copy" onclick="copyToClipboard()">
+                📋 SALIN PROMPT EXPERT
+            </button>
+        </div>
+    </div>
+
+    <!-- SEMUA TAB SYSTEM -->
+    <div class="tab-system">
+        <h2>2️⃣ MODULAR SETTINGS (SET & APPLY)</h2>
+
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="openTab('tab-platform', this)">🤖 Platform & Intensity</button>
+            <button class="tab-btn" onclick="openTab('tab-style', this)">🎨 VISUAL STYLE ENGINE</button>
+            <button class="tab-btn" onclick="openTab('tab-thematic', this)">🎭 THEMATIC CORE</button>
+            <button class="tab-btn" onclick="openTab('tab-ratio', this)">📐 Aspect Ratio</button>
+            <button class="tab-btn" onclick="openTab('tab-camera', this)">📷 MODULAR CAMERA BUILDER</button>
+            <button class="tab-btn" onclick="openTab('tab-camera-angles', this)">📐 CAMERA ANGLES MASTER</button>
+            <button class="tab-btn" onclick="openTab('tab-human', this)">👤 Human Reality</button>
+            <button class="tab-btn" onclick="openTab('tab-transformation', this)">🔄 Transformation</button>
+            <button class="tab-btn" onclick="openTab('tab-quality', this)">🚀 QUALITY BOOSTER</button>
+        </div>
+        
+        <div id="tab-platform" class="tab-content active">
+            <div class="section">
+                <div class="instruction-box">
+                    <h3>Instruksi: Universal Generator</h3>
+                    <p>Pilih AI Generator Anda dan atur tingkat **Intensity** (Style/Detail). Opsi **AI Generator (Generic)** menjamin kompatibilitas di semua platform. **Wajib klik APPLY** untuk menyimpan setting.</p>
+                </div>
+                <h3>Select AI Platform (Semua Generator Terakomodir)</h3>
+                <div class="ai-platform-selector">
+                    <div class="platform-card selected" data-platform="midjourney" onclick="selectPlatform(this, 'midjourney')"><span class="platform-icon">✨</span> Midjourney</div>
+                    <div class="platform-card" data-platform="stablediffusion" onclick="selectPlatform(this, 'stablediffusion')"><span class="platform-icon">🖼️</span> Stable Diffusion</div>
+                    <div class="platform-card" data-platform="dalle" onclick="selectPlatform(this, 'dalle')"><span class="platform-icon">🎨</span> DALL-E 3 (OpenAI)</div>
+                    <div class="platform-card" data-platform="leonardo" onclick="selectPlatform(this, 'leonardo')"><span class="platform-icon">👑</span> Leonardo AI</div>
+                    <div class="platform-card" data-platform="bing" onclick="selectPlatform(this, 'bing')"><span class="platform-icon">💻</span> Bing Image Creator/Copilot</div>
+                    <div class="platform-card" data-platform="fooocus" onclick="selectPlatform(this, 'fooocus')"><span class="platform-icon">👁️</span> Fooocus (Easy SD)</div>
+                    <div class="platform-card" data-platform="generic" onclick="selectPlatform(this, 'generic')"><span class="platform-icon">⚙️</span> AI Generator (Generic)</div>
+                </div>
+
+                <div class="quantum-intensity">
+                    <h3>Quantum Intensity (Max Detail)</h3>
+                    <input type="range" id="intensitySlider" class="intensity-slider" min="1" max="10" value="10" oninput="updateIntensity(this.value)">
+                    <div class="intensity-labels">
+                        <span>Low (V1)</span>
+                        <span id="intensityValue">10</span>
+                        <span>ULTIMATE (V10)</span>
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 30px;">
+                    <label>Midjourney Stylize (Optional, 0-1000)</label>
+                    <input type="number" id="mj-stylize" value="500" min="0" max="1000" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid var(--accent); background: var(--primary); color: var(--text);">
+                    <small>Nilai optimal: 500-750. Midjourney only.</small>
+                </div>
+
+                <button class="apply-btn" onclick="applyPlatformSettings()">
+                    ✅ APPLY PLATFORM & INTENSITY SETTINGS
+                </button>
+                <div class="setting-status status-pending" id="platform-status">Pending: Click APPLY untuk menyimpan.</div>
+            </div>
+        </div>
+        
+        <div id="tab-style" class="tab-content">
+            <div class="style-engine-section section">
+                <div class="instruction-box">
+                    <h3>Instruksi: Visual Style Engine (PILIHAN WAJIB)</h3>
+                    <p>Pilih **satu** gaya visual utama Anda. Pilihan ini akan dipadukan dengan setting kamera dan resolusi 8K. **Blending Intensity** sekarang menentukan **BOBOT KATA KUNCI** realisme yang disuntikkan!</p>
+                </div>
+                
+                <h3>Pilih Gaya Utama (7 Opsi WAJIB Anda):</h3>
+                <div class="style-selector-grid">
+                    <div class="style-card selected" data-style="fantasy-digital" onclick="selectStyle(this, 'fantasy-digital')">
+                        <p>1. **ANIMASI FANTASY DIGITAL PRINTING**</p>
+                    </div>
+                    <div class="style-card" data-style="real-photography" onclick="selectStyle(this, 'real-photography')">
+                        <p>2. **REAL PHOTOGRAPHY REALISTIC**</p>
+                        <small>(Hasil seperti kamera profesional)</small>
+                    </div>
+                    <div class="style-card" data-style="hyper-realistic" onclick="selectStyle(this, 'hyper-realistic')">
+                        <p>3. **HYPER ULTRA REALISTIC**</p>
+                        <small>(Detail sangat maksimal)</small>
+                    </div>
+                    <div class="style-card" data-style="anime-manga" onclick="selectStyle(this, 'anime-manga')">
+                        <p>4. **ANIME/MANGA**</p>
+                        <small>(Studio Ghibli / KyoAni Style)</small>
+                    </div>
+                    <div class="style-card" data-style="cartoon-3d" onclick="selectStyle(this, 'cartoon-3d')">
+                        <p>5. **CARTOON (Pixar/Disney)**</p>
+                        <small>(Visual 3D)</small>
+                    </div>
+                    <div class="style-card" data-style="hybrid" onclick="selectStyle(this, 'hybrid')">
+                        <p>6. **HYBRID**</p>
+                        <small>(Gaya Campuran Real & Digital)</small>
+                    </div>
+                    <div class="style-card" data-style="stylized" onclick="selectStyle(this, 'stylized')">
+                        <p>7. **STYLIZED**</p>
+                        <small>(Gaya Artistik Khusus)</small>
+                    </div>
+                </div>
+
+                <div class="quantum-intensity" style="margin-top: 30px;">
+                    <h3>STYLE BLENDING INTENSITY (Bobot Realisme: 0.0 - 2.0)</h3>
+                    <p class="instruction-box" style="margin-top: 10px; background: rgba(255, 0, 255, 0.1);">
+                        **1.2 - 1.5 (High Blend)**: Realisme maksimal pada detail teknis (**SSS, pori-pori, render photorealistic**) diterapkan ke gaya yang dipilih menggunakan **Dynamic Weighting**.
+                    </p>
+                    <input type="range" id="blendingSlider" class="intensity-slider" min="0.0" max="2.0" step="0.1" value="1.5" oninput="updateBlendingIntensity(this.value)">
+                    <div class="intensity-labels">
+                        <span>Pure Style (0.0)</span>
+                        <span id="blendingValue">1.5</span>
+                        <span>Maximal Photorealism Injection (2.0)</span>
+                    </div>
+                </div>
+
+                <button class="apply-btn" onclick="applyStyleSettings()">
+                    🎨 APPLY VISUAL STYLE ENGINE SETTINGS
+                </button>
+                <div class="setting-status status-pending" id="style-status">Pending: Click APPLY untuk menyimpan.</div>
+            </div>
+        </div>
+
+        <!-- TAB THEMATIC CORE -->
+        <div id="tab-thematic" class="tab-content">
+            <div class="section">
+                <div class="instruction-box">
+                    <h3>Instruksi: THEMATIC CORE ENGINE (Mood & Atmosfer)</h3>
+                    <p>Pilih tema emosional dan atmosfer untuk mengontrol "perasaan" gambar secara keseluruhan. Ini akan mengatur mood, warna, dan emotional impact.</p>
+                </div>
+                
+                <h3>🎨 Pilih Mood & Atmosfer Utama:</h3>
+                <div class="style-selector-grid">
+                    <div class="style-card" data-thematic="epic-heroic" onclick="selectThematic(this, 'epic-heroic')">
+                        <p>EPIC & HEROIC</p>
+                        <small>Dramatic, inspiring, triumphant, grand scale</small>
+                    </div>
+                    <div class="style-card" data-thematic="mysterious-eerie" onclick="selectThematic(this, 'mysterious-eerie')">
+                        <p>MYSTERIOUS & EERIE</p>
+                        <small>Dark, suspenseful, mystical, haunting</small>
+                    </div>
+                    <div class="style-card" data-thematic="serene-calm" onclick="selectThematic(this, 'serene-calm')">
+                        <p>SERENE & CALM</p>
+                        <small>Peaceful, tranquil, soft, meditative</small>
+                    </div>
+                    <div class="style-card" data-thematic="tense-dramatic" onclick="selectThematic(this, 'tense-dramatic')">
+                        <p>TENSE & DRAMATIC</p>
+                        <small>High tension, dynamic, action-packed, intense</small>
+                    </div>
+                    <div class="style-card" data-thematic="melancholic-lonely" onclick="selectThematic(this, 'melancholic-lonely')">
+                        <p>MELANCHOLIC & LONELY</p>
+                        <small>Sad, lonely, contemplative, nostalgic</small>
+                    </div>
+                    <div class="style-card" data-thematic="joyful-vibrant" onclick="selectThematic(this, 'joyful-vibrant')">
+                        <p>JOYFUL & VIBRANT</p>
+                        <small>Happy, vibrant, energetic, celebratory</small>
+                    </div>
+                    <div class="style-card" data-thematic="futuristic-cyber" onclick="selectThematic(this, 'futuristic-cyber')">
+                        <p>FUTURISTIC & CYBER</p>
+                        <small>Sci-fi, technological, neon, advanced</small>
+                    </div>
+                    <div class="style-card" data-thematic="vintage-nostalgic" onclick="selectThematic(this, 'vintage-nostalgic')">
+                        <p>VINTAGE & NOSTALGIC</p>
+                        <small>Retro, nostalgic, timeless, classic</small>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 30px;">
+                    <label>Custom Atmospheric Tags (Opsional - tambahkan detail mood spesifik):</label>
+                    <textarea id="custom-atmospheric" placeholder="Contoh: cinematic desaturation, cold color palette, haunting silence, oppressive atmosphere..."></textarea>
+                </div>
+
+                <button class="apply-btn" onclick="applyThematicSettings()">
+                    🎭 APPLY THEMATIC CORE
+                </button>
+                <div class="setting-status status-pending" id="thematic-status">Pending: Click APPLY untuk menyimpan.</div>
+            </div>
+        </div>
+
+        <div id="tab-ratio" class="tab-content">
+             <div class="section">
+                <div class="instruction-box">
+                    <h3>Instruksi: Aspect Ratio Selector</h3>
+                    <p>Pilih rasio aspek yang sesuai dengan kebutuhan Anda. Rasio ini akan menentukan format akhir gambar. **Pilihan default adalah 16:9 (Cinematic Widescreen).**</p>
+                </div>
+                <h3>Pilih Aspect Ratio (Kompatibel dengan Midjourney/SD)</h3>
+                <div class="ratio-selector-grid">
+                    <div class="ratio-card" data-ratio="1:1" onclick="selectRatio(this, '1:1')">
+                        <p>1:1 (Square)</p>
+                        <small>Format Klasik/Sosial Media.</small>
+                        <small>MJ: `--ar 1:1`</small>
+                    </div>
+                    <div class="ratio-card selected" data-ratio="16:9" onclick="selectRatio(this, '16:9')">
+                        <p>16:9 (Cinematic Widescreen)</p>
+                        <small>Rasio Film, Horizontal Luas. Default Terbaik.</small>
+                        <small>MJ: `--ar 16:9`</small>
+                    </div>
+                    <div class="ratio-card" data-ratio="9:16" onclick="selectRatio(this, '9:16')">
+                        <p>9:16 (Vertical Story/Reels)</p>
+                        <small>Optimal untuk format Portrait (HP/TikTok/IG Story).</small>
+                        <small>MJ: `--ar 9:16`</small>
+                    </div>
+                    <div class="ratio-card" data-ratio="4:3" onclick="selectRatio(this, '4:3')">
+                        <p>4:3 (Classic TV/Still Shot)</p>
+                        <small>Rasio Standar Lama.</small>
+                        <small>MJ: `--ar 4:3`</small>
+                    </div>
+                    <div class="ratio-card" data-ratio="3:4" onclick="selectRatio(this, '3:4')">
+                        <p>3:4 (Classic Portrait)</p>
+                        <small>Baik untuk Subjek Manusia.</small>
+                        <small>MJ: `--ar 3:4`</small>
+                    </div>
+                    <div class="ratio-card" data-ratio="21:9" onclick="selectRatio(this, '21:9')">
+                        <p>21:9 (Ultra Widescreen / Anamorphic)</p>
+                        <small>Sangat Lebar. Pemandangan Epik/Panoramik.</small>
+                        <small>MJ: `--ar 21:9`</small>
+                    </div>
+                </div>
+
+                <button class="apply-btn" onclick="applyRatioSettings()">
+                    📐 APPLY ASPECT RATIO SETTINGS
+                </button>
+                <div class="setting-status status-pending" id="ratio-status">Pending: Click APPLY untuk menyimpan.</div>
+            </div>
+        </div>
+
+        <div id="tab-camera" class="tab-content">
+            <div class="section">
+                <div class="instruction-box">
+                    <h3>Instruksi: MODULAR CAMERA BUILDER (MAX KONTROL!)</h3>
+                    <p>Pilih **SATU** elemen dari setiap kategori (Kamera, Lensa, Efek). Pilihan telah **ditingkatkan 3x** untuk kontrol maksimal dan profesional! Kombinasi total **ratusan opsi**.</p>
+                </div>
+                
+                <h3>1. Pilih Kamera Dasar (Sensor & Color Profile) - CINEMA & PHOTO GRADE</h3>
+                <div id="camera-select" class="camera-builder-grid">
+                    <div class="modular-card selected" data-group="camera" data-value="ARRI ALEXA 65">
+                        <p>📽️ ARRI ALEXA 65</p>
+                        <small>Kamera digital sinema resolusi tinggi.</small>
+                    </div>
+                    <div class="modular-card" data-group="camera" data-value="RED Komodo 6K">
+                        <p>🔴 RED Komodo 6K</p>
+                        <small>Kamera Sinema Kompak, Warna HDR.</small>
+                    </div>
+                    <div class="modular-card" data-group="camera" data-value="Canon EOS R5">
+                        <p>📸 Canon EOS R5</p>
+                        <small>Kamera Full-Frame, Fokus Cepat, Tonal Akurat.</small>
+                    </div>
+                    <div class="modular-card" data-group="camera" data-value="Sony A7R V">
+                        <p>📷 Sony A7R V</p>
+                        <small>Kamera Mirrorless, Fokus detail cepat.</small>
+                    </div>
+                    <div class="modular-card" data-group="camera" data-value="Hasselblad X1D II">
+                        <p>🌄 Hasselblad X1D II</p>
+                        <small>Format medium, detail tonal terbaik.</small>
+                    </div>
+                    <div class="modular-card" data-group="camera" data-value="Leica M11">
+                        <p>⚫ Leica M11</p>
+                        <small>Estetika Klasik, Foto Jalanan Realistis.</small>
+                    </div>
+                    <div class="modular-card" data-group="camera" data-value="Phase One XT">
+                        <p>🖼️ Phase One XT</p>
+                        <small>Format Besar, Detail & Kedalaman Tonal Ekstrem.</small>
+                    </div>
+                </div>
+
+                <h3>2. Pilih Lensa (Field of View & Depth of Field) - PROFESSIONAL GRADE</h3>
+                <div id="lens-select" class="camera-builder-grid">
+                    <div class="modular-card selected" data-group="lens" data-value="50mm f/1.4">
+                        <p>50mm f/1.4 (Standard)</p>
+                        <small>Lensa standard, DoF dangkal (bokeh halus).</small>
+                    </div>
+                    <div class="modular-card" data-group="lens" data-value="85mm f/1.2">
+                        <p>85mm f/1.2 (Portrait Bokeh)</p>
+                        <small>Lensa Portrait, Bokeh maksimal, Isolasi Subjek.</small>
+                    </div>
+                    <div class="modular-card" data-group="lens" data-value="35mm f/1.8">
+                        <p>35mm f/1.8 (Wide View)</p>
+                        <small>Sudut pandang luas, cocok untuk *environmental shot*.</small>
+                    </div>
+                    <div class="modular-card" data-group="lens" data-value="135mm f/2.0">
+                        <p>135mm f/2.0 (Tele-Portrait)</p>
+                        <small>Lensa telefoto untuk kompresi latar belakang.</small>
+                    </div>
+                     <div class="modular-card" data-group="lens" data-value="16mm f/2.8">
+                        <p>16mm f/2.8 (Ultra Wide)</p>
+                        <small>Sudut pandang ekstrem, dramatis, distorsi sedikit.</small>
+                    </div>
+                    <div class="modular-card" data-group="lens" data-value="Macro Lens">
+                        <p>🔬 Macro Lens</p>
+                        <small>Detail sangat dekat, tekstur mikro.</small>
+                    </div>
+                    <div class="modular-card" data-group="lens" data-value="Anamorphic Lens">
+                        <p>🎬 Anamorphic Lens</p>
+                        <small>Efek sinema, *lens flare* horizontal.</small>
+                    </div>
+                    <div class="modular-card" data-group="lens" data-value="Tilt-Shift Lens">
+                        <p>📐 Tilt-Shift Lens</p>
+                        <small>Efek miniatur (Miniature Effect), manipulasi fokus.</small>
+                    </div>
+                </div>
+                
+                 <h3>3. Pilih Efek & Pencahayaan (Lighting & Color Grade) - ATMOSFERIK</h3>
+                <div id="effect-select" class="camera-builder-grid">
+                    <div class="modular-card selected" data-group="effect" data-value="Volumetric Lighting, Cinematic Color Grade">
+                        <p>💡 Volumetric & Cinematic</p>
+                        <small>Cahaya seperti di film, warna dramatis.</small>
+                    </div>
+                    <div class="modular-card" data-group="effect" data-value="Studio Lighting Setup, Beautiful Bokeh">
+                        <p>✨ Studio & Bokeh</p>
+                        <small>Pencahayaan studio profesional, latar buram indah.</small>
+                    </div>
+                    <div class="modular-card" data-group="effect" data-value="High Dynamic Range (HDR), Tonal Mapping">
+                        <p>🌈 HDR Tonal Mapping</p>
+                        <small>Detail di area terang dan gelap terlihat jelas.</small>
+                    </div>
+                    <div class="modular-card" data-group="effect" data-value="Low Key Lighting, High Contrast, Film Noir Aesthetic">
+                        <p>🌑 Low Key & Noir</p>
+                        <small>Pencahayaan rendah, bayangan keras, gaya gelap.</small>
+                    </div>
+                    <div class="modular-card" data-group="effect" data-value="Golden Hour Lighting, Sun Flares, Soft Shadows">
+                        <p>☀️ Golden Hour & Flares</p>
+                        <small>Cahaya keemasan, siluet lembut, hangat.</small>
+                    </div>
+                    <div class="modular-card" data-group="effect" data-value="Cyberpunk Neon Lighting, Wet Surfaces, Reflections">
+                        <p>🌃 Neon Cyberpunk</p>
+                        <small>Pencahayaan neon, permukaan basah, refleksi tinggi.</small>
+                    </div>
+                     <div class="modular-card" data-group="effect" data-value="Backlighting, Strong Rim Light, Dramatic Silhouette">
+                        <p>💥 Backlighting (Rim Light)</p>
+                        <small>Cahaya dari belakang, menonjolkan garis tepi subjek.</small>
+                    </div>
+                     <div class="modular-card" data-group="effect" data-value="Cinestill 800T Film Stock Effect, Grainy Texture, Vintage Color Palette">
+                        <p>🎞️ Cinestill Film Look</p>
+                        <small>Gaya film analog 35mm, berbutir (grainy), warna vintage.</small>
+                    </div>
+                </div>
+                
+                <button class="apply-btn" onclick="applyModularCameraSettings()">
+                    📸 APPLY MODULAR CAMERA BUILDER SETTINGS
+                </button>
+                <div class="setting-status status-pending" id="camera-status">Pending: Click APPLY untuk menyimpan.</div>
+            </div>
+        </div>
+
+        <!-- TAB CAMERA ANGLES MASTER -->
+        <div id="tab-camera-angles" class="tab-content">
+            <div class="section">
+                <div class="instruction-box">
+                    <h3>Instruksi: CAMERA ANGLES MASTER - Kontrol Perspektif & Komposisi</h3>
+                    <p>Pilih **satu sudut pengambilan gambar** untuk menentukan perspektif dan komposisi visual. Setiap angle memberikan efek emosional dan storytelling yang berbeda. **Pilihan default: Eye Level** untuk tampilan natural.</p>
+                </div>
+
+                <h3>🎯 BASIC ANGLES (Fundamental Photography)</h3>
+                <div class="camera-builder-grid">
+                    <div class="modular-card selected" data-group="angle" data-value="Eye Level Shot" onclick="selectCameraAngle(this, 'eye-level')">
+                        <p>👁️ EYE LEVEL SHOT</p>
+                        <small>Sudut pandang natural setinggi mata manusia. Netral, stabil, dan mudah diterima.</small>
+                        <div class="angle-details">
+                            <strong>Efek:</strong> Natural, relatable<br>
+                            <strong>Use Case:</strong> Portrait, conversation, everyday scenes
+                        </div>
+                    </div>
+                    
+                    <div class="modular-card" data-group="angle" data-value="Low Angle Shot" onclick="selectCameraAngle(this, 'low-angle')">
+                        <p>⬆️ LOW ANGLE SHOT</p>
+                        <small>Kamera melihat ke atas. Membuat subjek terlihat lebih besar, kuat, dan dominan.</small>
+                        <div class="angle-details">
+                            <strong>Efek:</strong> Powerful, heroic, imposing<br>
+                            <strong>Use Case:</strong> Heroes, villains, monumental architecture
+                        </div>
+                    </div>
+                    
+                    <div class="modular-card" data-group="angle" data-value="High Angle Shot" onclick="selectCameraAngle(this, 'high-angle')">
+                        <p>⬇️ HIGH ANGLE SHOT</p>
+                        <small>Kamera melihat ke bawah. Subjek terlihat lebih kecil, vulnerable, atau terisolasi.</small>
+                        <div class="angle-details">
+                            <strong>Efek:</strong> Vulnerable, small, overwhelmed<br>
+                            <strong>Use Case:</strong> Victims, children, overwhelming environments
+                        </div>
+                    </div>
+                    
+                    <div class="modular-card" data-group="angle" data-value="Dutch Angle / Tilted Shot" onclick="selectCameraAngle(this, 'dutch-angle')">
+                        <p>🎭 DUTCH ANGLE / TILTED</p>
+                        <small>Kamera dimiringkan. Menciptakan ketegangan, kekacauan, atau psychological unrest.</small>
+                        <div class="angle-details">
+                            <strong>Efek:</strong> Tense, disorienting, dramatic<br>
+                            <strong>Use Case:</strong> Action scenes, madness, supernatural events
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🚀 ADVANCED ANGLES (Cinematic & Creative)</h3>
+                <div class="camera-builder-grid">
+                    <div class="modular-card" data-group="angle" data-value="Bird's Eye View / Overhead Shot" onclick="selectCameraAngle(this, 'birds-eye')">
+                        <p>🦅 BIRD'S EYE VIEW</p>
+                        <small>Kamera tepat di atas subjek. Pandangan komprehensif, pola, dan desain terlihat jelas.</small>
+                        <div class="angle-details">
+                            <strong>Efek:</strong> Omniscient, pattern-focused, abstract<br>
+                            <strong>Use Case:</strong> Cityscapes, battle formations, artistic compositions
+                        </div>
+                    </div>
+                    
+                    <div class="modular-card" data-group="angle" data-value="Worm's Eye View" onclick="selectCameraAngle(this, 'worms-eye')">
+                        <p>🐛 WORM'S EYE VIEW</p>
+                        <small>Kamera dari tanah melihat langsung ke atas. Dramatis ekstrem dan surreal.</small>
+                        <div class="angle-details">
+                            <strong>Efek:</strong> Extreme drama, surreal, monumental<br>
+                            <strong>Use Case:</strong> Skyscrapers, giants, supernatural beings
+                        </div>
+                    </div>
+                    
+                    <div class="modular-card" data-group="angle" data-value="Shoulder Level Shot" onclick="selectCameraAngle(this, 'shoulder-level')">
+                        <p>👤 SHOULDER LEVEL SHOT</p>
+                        <small>Kamera setinggi bahu. Intim dan personal, sering digunakan dalam dialog.</small>
+                        <div class="angle-details">
+                            <strong>Efek:</strong> Intimate, personal, engaging<br>
+                            <strong>Use Case:</strong> Dialog scenes, emotional moments, character focus
+                        </div>
+                    </div>
+                    
+                    <div class="modular-card" data-group="angle" data-value="Hip Level Shot" onclick="selectCameraAngle(this, 'hip-level')">
+                        <p>🕴️ HIP LEVEL SHOT</p>
+                        <small>Kamera setinggi pinggang. Memberikan feel western atau action hero stance.</small>
+                        <div class="angle-details">
+                            <strong>Efek:</strong> Western vibe, action-ready, casual<br>
+                            <strong>Use Case:</strong> Cowboy shots, action heroes, casual standing
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🎬 DYNAMIC ANGLES (Movement & Action)</h3>
+                <div class="camera-builder-grid">
+                    <div class="modular-card" data-group="angle" data-value="Point-of-View (POV) Shot" onclick="selectCameraAngle(this, 'pov')">
+                        <p>🎯 POINT-OF-VIEW (POV)</p>
+                        <small>Kamera melihat melalui mata karakter. Audience menjadi karakter tersebut.</small>
+                        <div class="angle-details">
+                            <strong>Efek:</strong> Immersive, first-person, subjective<br>
+                            <strong>Use Case:</strong> Horror, VR experiences, personal moments
+                        </div>
+                    </div>
+                    
+                    <div class="modular-card" data-group="angle" data-value="Over-the-Shoulder Shot" onclick="selectCameraAngle(this, 'over-shoulder')">
+                        <p>👥 OVER-THE-SHOULDER</p>
+                        <small>Kamera di belakang bahu karakter. Menghubungkan dua subjek dalam frame.</small>
+                        <div class="angle-details">
+                            <strong>Efek:</strong> Connecting, conversational, relational<br>
+                            <strong>Use Case:</strong> Dialog scenes, confrontations, interactions
+                        </div>
+                    </div>
+                    
+                    <div class="modular-card" data-group="angle" data-value="Canted Oblique Shot" onclick="selectCameraAngle(this, 'canted-oblique')">
+                        <p>⚡ CANTED OBLIQUE SHOT</p>
+                        <small>Variasi Dutch Angle yang lebih subtle. Ketegangan tanpa disorientasi berlebihan.</small>
+                        <div class="angle-details">
+                            <strong>Efek:</strong> Subtle tension, dynamic, modern<br>
+                            <strong>Use Case:</strong> Action sequences, stylish compositions
+                        </div>
+                    </div>
+                    
+                    <div class="modular-card" data-group="angle" data-value="Top-Down Isometric" onclick="selectCameraAngle(this, 'isometric')">
+                        <p>🎮 TOP-DOWN ISOMETRIC</p>
+                        <small>Pandangan diagonal dari atas. Populer di video game dan technical illustrations.</small>
+                        <div class="angle-details">
+                            <strong>Efek:</strong> Game-like, technical, structured<br>
+                            <strong>Use Case:</strong> Game assets, architectural viz, technical art
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-recommendation" style="margin-top: 25px;">
+                    <h4>💡 EXPERT TIPS: Memilih Angle yang Tepat</h4>
+                    <ul>
+                        <li><strong>Eye Level</strong>: Default teraman untuk sebagian besar scene</li>
+                        <li><strong>Low Angle</strong>: Untuk karakter heroik, powerful, atau intimidating</li>
+                        <li><strong>High Angle</strong>: Untuk karakter vulnerable atau situasi overwhelming</li>
+                        <li><strong>Dutch Angle</strong>: Untuk scene tense, action, atau psychological</li>
+                        <li><strong>POV Shot</strong>: Untuk immersion maksimal dan pengalaman first-person</li>
+                        <li><strong>Bird's Eye</strong>: Untuk menunjukkan pola, layout, atau skala besar</li>
+                    </ul>
+                </div>
+
+                <button class="apply-btn" onclick="applyCameraAngleSettings()">
+                    📐 APPLY CAMERA ANGLES MASTER
+                </button>
+                <div class="setting-status status-pending" id="camera-angle-status">Pending: Click APPLY untuk menyimpan.</div>
+            </div>
+        </div>
+        
+        <div id="tab-human" class="tab-content">
+            <div class="section">
+                <div class="instruction-box">
+                    <h3>Instruksi: HIGH CONSISTENCY</h3>
+                    <p>Isi detail wajah, pakaian, dan pilih booster konsistensi. Ini penting untuk mencegah distorsi wajah dan menjamin tekstur kulit **Flawless**.</p>
+                </div>
+                <div class="form-group">
+                    <label>Detail Wajah & Ekspresi (Opsional)</label>
+                    <textarea id="human-details" placeholder="Contoh: Wajah tegas, rambut hitam panjang bergelombang, mata biru tajam..."></textarea>
+                </div>
+                 <div class="form-group">
+                    <label>Booster Konsistensi Wajah (Tags)</label>
+                    <input type="text" id="human-booster-tags" value="Flawless Skin, Detailed Pores, Face Consistency 100%, Subsurface Scattering (SSS)" placeholder="Tambahkan tag seperti: Photorealistic skin, perfect anatomy">
+                </div>
+                
+                <button class="apply-btn" onclick="applyHumanRealitySettingsCustom()">
+                    👤 APPLY HUMAN REALITY SETTINGS
+                </button>
+                <div class="setting-status status-pending" id="human-status">Pending: Click APPLY untuk menyimpan.</div>
+            </div>
+        </div>
+        
+        <div id="tab-transformation" class="tab-content">
+            <div class="section">
+                <div class="instruction-box">
+                    <h3>Instruksi: AI CO-PILOT TRANSFORMATION BOOSTER</h3>
+                    <p>Pilih mode **Manual** untuk input sendiri, atau **Auto Smart Boost** untuk generate otomatis berdasarkan semua setting yang sudah dipilih!</p>
+                </div>
+
+                <!-- DUAL MODE TRANSFORMATION -->
+                <div class="transformation-mode">
+                    <div class="form-group">
+                        <label>Transformation Mode:</label>
+                        <div class="tab-buttons">
+                            <button class="tab-btn active" id="manual-mode-btn" onclick="switchTransformationMode('manual')">Manual Input</button>
+                            <button class="tab-btn" id="auto-mode-btn" onclick="switchTransformationMode('auto')">Auto Smart Boost</button>
+                        </div>
+                    </div>
+                    
+                    <!-- AI RECOMMENDATIONS -->
+                    <div id="ai-recommendations" class="ai-recommendation" style="display: none;">
+                        <h4>🤖 AI CO-PILOT RECOMMENDATIONS</h4>
+                        <div id="recommendation-content"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Custom Rendering & Quality Tags (Pisahkan dengan koma)</label>
+                    <textarea id="transformation-tags-input" placeholder="Contoh: Unreal Engine 5 Rendering, Octane Render, ZBrush sculpted, Digital Art, Dramatic Lighting">Unreal Engine 5 Rendering, Octane Render, ZBrush sculpted, Digital Art</textarea>
+                </div>
+                
+                <button class="apply-btn" onclick="applyTransformationSettingsCustom()">
+                    🔄 APPLY TRANSFORMATION TAGS
+                </button>
+                <div class="setting-status status-pending" id="transformation-status">Pending: Click APPLY untuk menyimpan.</div>
+            </div>
+        </div>
+
+        <!-- TAB QUALITY BOOSTER -->
+        <div id="tab-quality" class="tab-content">
+            <div class="section">
+                <div class="instruction-box">
+                    <h3>Instruksi: 16K QUALITY BOOSTER ENGINE</h3>
+                    <p>Atur parameter kualitas untuk memastikan gambar TIDAK NGEBLUR dan mencapai kualitas maksimal 16K. Pilih preset atau atur manual.</p>
+                </div>
+
+                <h3>🎯 Preset Kualitas (Recommended)</h3>
+                <div class="style-selector-grid">
+                    <div class="style-card selected" data-quality="ultra" onclick="selectQualityPreset(this, 'ultra')">
+                        <p>🔥 ULTRA QUALITY (16K MAX)</p>
+                        <small>Kualitas tertinggi dengan detail maksimal</small>
+                    </div>
+                    <div class="style-card" data-quality="high" onclick="selectQualityPreset(this, 'high')">
+                        <p>⚡ HIGH QUALITY (8K)</p>
+                        <small>Kualitas tinggi dengan detail sangat baik</small>
+                    </div>
+                    <div class="style-card" data-quality="balanced" onclick="selectQualityPreset(this, 'balanced')">
+                        <p>⚖️ BALANCED (4K)</p>
+                        <small>Kualitas baik dengan kecepatan generate optimal</small>
+                    </div>
+                </div>
+
+                <div class="quantum-intensity" style="margin-top: 30px;">
+                    <h3>🔄 SHARPNESS & DETAIL INTENSITY</h3>
+                    <input type="range" id="sharpnessSlider" class="intensity-slider" min="1" max="10" value="10" oninput="updateSharpness(this.value)">
+                    <div class="intensity-labels">
+                        <span>Soft (1)</span>
+                        <span id="sharpnessValue">10</span>
+                        <span>Razor Sharp (10)</span>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 30px;">
+                    <label>🔍 EXTRA QUALITY TAGS (Opsional - tambahkan tag kualitas spesifik):</label>
+                    <textarea id="extra-quality-tags" placeholder="Contoh: crisp details, tack sharp, ultra detailed, hyperrealistic, megapixel, professional grade, studio quality, master quality">crisp details, tack sharp, ultra detailed, hyperrealistic, megapixel, professional grade, studio quality, master quality</textarea>
+                </div>
+
+                <div class="ai-recommendation">
+                    <h4>💡 TIPS UNTUK KUALITAS 16K MAX:</h4>
+                    <ul>
+                        <li>Gunakan <strong>Quantum Intensity 8-10</strong> untuk detail maksimal</li>
+                        <li>Pilih <strong>Hyper-Realistic style</strong> untuk tekstur terbaik</li>
+                        <li>Tambahkan <strong>camera RAW photo</strong> di Modular Camera</li>
+                        <li>Gunakan <strong>negative prompt</strong> untuk hindari blur & noise</li>
+                    </ul>
+                </div>
+
+                <button class="apply-btn" onclick="applyQualitySettings()">
+                    🚀 APPLY QUALITY BOOSTER SETTINGS
+                </button>
+                <div class="setting-status status-pending" id="quality-status">Pending: Click APPLY untuk menyimpan.</div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    // =========================================================
+    // VARIABEL GLOBAL
+    // =========================================================
+    let currentLevel = 'quantum';
+    let selectedPlatform = 'midjourney';
+    let selectedStyle = 'fantasy-digital';
+    let selectedThematic = 'epic-heroic';
+    let selectedRatio = '16:9';
+    let selectedCamera = 'ARRI ALEXA 65';
+    let selectedLens = '50mm f/1.4';
+    let selectedEffect = 'Volumetric Lighting, Cinematic Color Grade';
+    let selectedCameraAngle = 'eye-level';
+    let inputMode = 'multi';
+    let subjectWeight = 1.5;
+    let quantumIntensityValue = 10;
+    let blendingIntensity = 1.5;
+    let mjStylizeValue = 500;
+    let transformationMode = 'manual';
+    let qualityPreset = 'ultra';
+    let sharpnessValue = 10;
+    
+    // Status flags
+    let isNegationApplied = false;
+    let isRatioApplied = false;
+    let isCameraApplied = false;
+    let isCameraAngleApplied = false;
+    let isHumanApplied = false;
+    let isTransformationApplied = false;
+    let isPlatformApplied = false;
+    let isStyleApplied = false;
+    let isThematicApplied = false;
+    let isQualityApplied = false;
+    
+    // Applied settings
+    let appliedNegativePrompt = '';
+    let appliedHumanRealitySettings = '';
+    let appliedTransformationTags = [];
+    let customAtmosphericTags = '';
+    let extraQualityTags = '';
+
+    // =========================================================
+    // ULTIMATE PROMPT ENGINEERING SYSTEM - PROFESSIONAL GRADE
+    // =========================================================
+
+    class UltimatePromptEngine {
+        constructor() {
+            this.visualHierarchy = {
+                primarySubject: '',
+                secondaryElements: [],
+                backgroundContext: '',
+                atmosphericElements: []
+            };
+            
+            this.cameraComposition = {
+                shotType: '',
+                lensType: '',
+                cameraMovement: '',
+                focusPoints: []
+            };
+            
+            this.lightingSetup = {
+                mainLight: '',
+                fillLight: '',
+                backlight: '',
+                ambientLight: '',
+                moodLighting: ''
+            };
+            
+            this.textureQuality = {
+                surfaceDetails: [],
+                materialProperties: [],
+                microDetails: []
+            };
+            
+            this.emotionalContext = {
+                mood: '',
+                emotion: '',
+                narrative: '',
+                psychological: ''
+            };
+        }
+
+        // ANALISIS VISUAL HIERARCHY OTOMATIS
+        analyzeVisualHierarchy(subject, action, environment) {
+            this.visualHierarchy.primarySubject = this.extractPrimarySubject(subject);
+            this.visualHierarchy.secondaryElements = this.extractSecondaryElements(action);
+            this.visualHierarchy.backgroundContext = environment;
+            this.visualHierarchy.atmosphericElements = this.detectAtmosphericElements(environment);
+            
+            return this.visualHierarchy;
+        }
+
+        extractPrimarySubject(text) {
+            const keywords = text.toLowerCase().split(' ');
+            const priorityWords = ['dragon', 'naga', 'character', 'person', 'woman', 'man', 'creature', 'monster', 'animal', 'vehicle', 'building'];
+            
+            for (let word of priorityWords) {
+                if (text.toLowerCase().includes(word)) {
+                    return this.enhanceSubjectDescription(text, word);
+                }
+            }
+            
+            // Default: ambil 5-7 kata pertama sebagai subjek utama
+            return text.split(' ').slice(0, 7).join(' ');
+        }
+
+        enhanceSubjectDescription(text, keyword) {
+            const enhancements = {
+                'dragon': 'mythical creature with intricate scales, powerful wings, and majestic presence',
+                'naga': 'serpentine mythical being with elegant coils and mystical aura',
+                'character': 'detailed character with expressive features and dynamic posing',
+                'person': 'photorealistic human figure with natural proportions and lifelike appearance',
+                'woman': 'elegant female figure with graceful posture and detailed features',
+                'man': 'masculine figure with strong presence and detailed anatomy',
+                'creature': 'fantastical being with unique biological features and otherworldly presence',
+                'monster': 'formidable entity with intimidating features and powerful build',
+                'animal': 'realistic creature with natural fur/feathers and authentic behavior',
+                'vehicle': 'detailed mechanical object with realistic materials and functional design',
+                'building': 'architectural structure with detailed surfaces and proper scale'
+            };
+            
+            return `${text}, ${enhancements[keyword] || 'highly detailed with intricate features'}`;
+        }
+
+        extractSecondaryElements(actionText) {
+            if (!actionText) return [];
+            
+            const actions = actionText.split(',').map(a => a.trim());
+            const enhancedActions = actions.map(action => {
+                if (action.includes('terbang') || action.includes('flying')) {
+                    return `${action}, dynamic aerial movement, wind effects, flowing motion`;
+                }
+                if (action.includes('berlari') || action.includes('running')) {
+                    return `${action}, motion blur, dynamic pose, kinetic energy`;
+                }
+                if (action.includes('bertarung') || action.includes('fighting')) {
+                    return `${action}, intense action, dramatic tension, dynamic composition`;
+                }
+                if (action.includes('memegang') || action.includes('holding')) {
+                    return `${action}, detailed interaction, proper grip, natural hand positioning`;
+                }
+                return action;
+            });
+            
+            return enhancedActions;
+        }
+
+        detectAtmosphericElements(environment) {
+            if (!environment) return [];
+            
+            const atmospherics = [];
+            
+            if (environment.toLowerCase().includes('gunung') || environment.toLowerCase().includes('mountain')) {
+                atmospherics.push('majestic peaks', 'dramatic elevation', 'alpine atmosphere');
+            }
+            if (environment.toLowerCase().includes('hutan') || environment.toLowerCase().includes('forest')) {
+                atmospherics.push('dappled sunlight', 'woodland ambiance', 'natural canopy');
+            }
+            if (environment.toLowerCase().includes('laut') || environment.toLowerCase().includes('ocean')) {
+                atmospherics.push('ocean breeze', 'salt spray', 'marine atmosphere');
+            }
+            if (environment.toLowerCase().includes('kota') || environment.toLowerCase().includes('city')) {
+                atmospherics.push('urban energy', 'architectural density', 'cityscape ambiance');
+            }
+            if (environment.toLowerCase().includes('malam') || environment.toLowerCase().includes('night')) {
+                atmospherics.push('nocturnal mystery', 'moonlit ambiance', 'nighttime atmosphere');
+            }
+            
+            return atmospherics;
+        }
+
+        // BUILD CAMERA COMPOSITION PROFESSIONAL
+        buildCameraComposition(selectedCamera, selectedLens, selectedCameraAngle) {
+            this.cameraComposition.shotType = this.translateCameraAngle(selectedCameraAngle);
+            this.cameraComposition.lensType = this.enhanceLensDescription(selectedLens);
+            this.cameraComposition.cameraMovement = this.determineCameraMovement(selectedCameraAngle);
+            this.cameraComposition.focusPoints = this.determineFocusPoints();
+            
+            return this.cameraComposition;
+        }
+
+        translateCameraAngle(angle) {
+            const angleMap = {
+                'eye-level': 'eye-level composition, natural perspective, balanced framing',
+                'low-angle': 'heroic low-angle shot, powerful upward perspective, imposing presence',
+                'high-angle': 'overview high-angle shot, downward perspective, contextual framing',
+                'dutch-angle': 'dynamic dutch angle, tilted composition, dramatic tension',
+                'birds-eye': "expansive bird's-eye view, top-down perspective, comprehensive scene coverage",
+                'worms-eye': "extreme worm's-eye view, ground-level perspective, monumental scale",
+                'shoulder-level': 'intimate shoulder-level shot, personal perspective, engaging composition',
+                'hip-level': 'casual hip-level shot, relaxed perspective, natural stance',
+                'pov': 'immersive point-of-view shot, first-person perspective, subjective experience',
+                'over-shoulder': 'connective over-shoulder shot, relational perspective, interactive framing',
+                'canted-oblique': 'stylish canted oblique angle, modern composition, dynamic energy',
+                'isometric': 'technical isometric perspective, structured composition, game-asset style'
+            };
+            
+            return angleMap[angle] || angleMap['eye-level'];
+        }
+
+        enhanceLensDescription(lens) {
+            const lensEnhancements = {
+                '50mm f/1.4': 'natural perspective with beautiful bokeh, standard focal length',
+                '85mm f/1.2': 'portrait perfection with creamy bokeh, flattering compression',
+                '35mm f/1.8': 'environmental wide-angle with context inclusion, cinematic feel',
+                '135mm f/2.0': 'telephoto compression with subject isolation, professional portrait',
+                '16mm f/2.8': 'ultra-wide dramatic perspective, expansive field of view',
+                'Macro Lens': 'extreme close-up capability, microscopic detail revelation',
+                'Anamorphic Lens': 'cinematic widescreen format, characteristic lens flares',
+                'Tilt-Shift Lens': 'miniature effect with selective focus, creative perspective control'
+            };
+            
+            return lensEnhancements[lens] || 'professional lens with optimal optical quality';
+        }
+
+        determineCameraMovement(angle) {
+            const dynamicAngles = ['dutch-angle', 'canted-oblique', 'pov', 'low-angle', 'high-angle'];
+            if (dynamicAngles.includes(angle)) {
+                return 'dynamic camera positioning, intentional movement blur, cinematic motion';
+            }
+            return 'stable camera setup, precise framing, professional photography';
+        }
+
+        determineFocusPoints() {
+            const focusPoints = ['primary subject sharp focus', 'intentional depth of field'];
+            
+            if (this.visualHierarchy.secondaryElements.length > 0) {
+                focusPoints.push('secondary elements contextual focus');
+            }
+            
+            if (this.visualHierarchy.backgroundContext) {
+                focusPoints.push('background environmental context');
+            }
+            
+            return focusPoints;
+        }
+
+        // BUILD PROFESSIONAL LIGHTING SETUP
+        buildLightingSetup(selectedEffect, thematic) {
+            const effect = selectedEffect.toLowerCase();
+            
+            // Main Light Analysis
+            if (effect.includes('volumetric') || effect.includes('cinematic')) {
+                this.lightingSetup.mainLight = 'dramatic volumetric lighting, visible light rays, atmospheric illumination';
+            } else if (effect.includes('studio')) {
+                this.lightingSetup.mainLight = 'professional studio lighting, controlled illumination, perfect exposure';
+            } else if (effect.includes('golden hour')) {
+                this.lightingSetup.mainLight = 'warm golden hour sunlight, soft directional lighting, golden tones';
+            } else if (effect.includes('neon')) {
+                this.lightingSetup.mainLight = 'vibrant neon illumination, colored light sources, cyberpunk lighting';
+            } else {
+                this.lightingSetup.mainLight = 'professional photographic lighting, optimal exposure, balanced illumination';
+            }
+
+            // Fill Light
+            this.lightingSetup.fillLight = 'subtle fill lighting, controlled shadows, detail preservation';
+
+            // Backlight based on effect
+            if (effect.includes('backlight') || effect.includes('rim light')) {
+                this.lightingSetup.backlight = 'strong rim lighting, edge illumination, separation from background';
+            } else {
+                this.lightingSetup.backlight = 'subtle backlighting, depth enhancement, dimensional separation';
+            }
+
+            // Ambient Light
+            this.lightingSetup.ambientLight = 'natural ambient illumination, environmental light integration';
+
+            // Mood Lighting based on thematic
+            this.lightingSetup.moodLighting = this.determineMoodLighting(thematic);
+
+            return this.lightingSetup;
+        }
+
+        determineMoodLighting(thematic) {
+            const moodLighting = {
+                'epic-heroic': 'heroic lighting, dramatic contrasts, inspiring illumination',
+                'mysterious-eerie': 'mysterious lighting, shadow play, eerie atmosphere',
+                'serene-calm': 'soft gentle lighting, even illumination, peaceful ambiance',
+                'tense-dramatic': 'high contrast lighting, dramatic shadows, intense mood',
+                'melancholic-lonely': 'subdued lighting, soft shadows, contemplative mood',
+                'joyful-vibrant': 'bright vibrant lighting, cheerful illumination, energetic mood',
+                'futuristic-cyber': 'neon-accented lighting, technological glow, futuristic ambiance',
+                'vintage-nostalgic': 'warm nostalgic lighting, vintage tones, timeless atmosphere'
+            };
+            
+            return moodLighting[thematic] || 'professional mood lighting, emotional ambiance';
+        }
+
+        // BUILD TEXTURE AND MATERIAL SYSTEM
+        buildTextureSystem(style, intensity) {
+            const baseTextures = this.getBaseTextures(style);
+            const enhancedTextures = this.enhanceWithIntensity(baseTextures, intensity);
+            
+            this.textureQuality.surfaceDetails = enhancedTextures.surface;
+            this.textureQuality.materialProperties = enhancedTextures.materials;
+            this.textureQuality.microDetails = enhancedTextures.micro;
+            
+            return this.textureQuality;
+        }
+
+        getBaseTextures(style) {
+            const textureLibrary = {
+                'fantasy-digital': {
+                    surface: ['intricate scales', 'magical textures', 'fantasy surfaces'],
+                    materials: ['enchanted metals', 'magical materials', 'fantasy elements'],
+                    micro: ['spell effects', 'magical particles', 'fantasy details']
+                },
+                'real-photography': {
+                    surface: ['natural textures', 'realistic surfaces', 'authentic materials'],
+                    materials: ['organic materials', 'real-world substances', 'photographic elements'],
+                    micro: ['pore details', 'skin texture', 'fabric weave']
+                },
+                'hyper-realistic': {
+                    surface: ['hyper-detailed surfaces', 'micro-textures', 'ultra-realistic materials'],
+                    materials: ['physically accurate materials', 'scientific realism', 'authentic substances'],
+                    micro: ['subsurface scattering', 'micro-details', 'atomic-level texture']
+                },
+                'anime-manga': {
+                    surface: ['cel-shaded surfaces', 'anime textures', 'stylized materials'],
+                    materials: ['animated materials', 'comic book elements', 'Japanese art style'],
+                    micro: ['screen tones', 'manga effects', 'anime details']
+                },
+                'cartoon-3d': {
+                    surface: ['3D cartoon surfaces', 'stylized textures', 'animated materials'],
+                    materials: ['Pixar-style materials', 'cartoon physics', '3D animation elements'],
+                    micro: ['toon shading', 'cartoon details', 'animated effects']
+                }
+            };
+            
+            return textureLibrary[style] || textureLibrary['real-photography'];
+        }
+
+        enhanceWithIntensity(textures, intensity) {
+            const multiplier = intensity / 10; // 0.1 to 1.0 scale
+            
+            if (multiplier > 0.7) {
+                textures.surface.push('ultra-high resolution textures', '8K surface details');
+                textures.materials.push('physically based rendering', 'advanced material properties');
+                textures.micro.push('microscopic details', 'atomic-level texture mapping');
+            }
+            
+            if (multiplier > 0.9) {
+                textures.surface.push('16K texture resolution', 'scan-level detail');
+                textures.materials.push('scientific material accuracy', 'laboratory-grade materials');
+                textures.micro.push('nanoscale details', 'molecular-level texture');
+            }
+            
+            return textures;
+        }
+
+        // BUILD EMOTIONAL CONTEXT SYSTEM
+        buildEmotionalContext(thematic, subject, environment) {
+            this.emotionalContext.mood = this.determineMood(thematic);
+            this.emotionalContext.emotion = this.extractEmotion(subject);
+            this.emotionalContext.narrative = this.buildNarrative(subject, environment);
+            this.emotionalContext.psychological = this.determinePsychologicalImpact(thematic);
+            
+            return this.emotionalContext;
+        }
+
+        determineMood(thematic) {
+            const moodMap = {
+                'epic-heroic': 'inspiring, triumphant, grand, monumental',
+                'mysterious-eerie': 'mysterious, suspenseful, haunting, enigmatic',
+                'serene-calm': 'peaceful, tranquil, meditative, harmonious',
+                'tense-dramatic': 'intense, dramatic, suspenseful, dynamic',
+                'melancholic-lonely': 'sad, contemplative, nostalgic, emotional',
+                'joyful-vibrant': 'happy, energetic, celebratory, vibrant',
+                'futuristic-cyber': 'technological, advanced, innovative, futuristic',
+                'vintage-nostalgic': 'nostalgic, timeless, classic, retro'
+            };
+            
+            return moodMap[thematic] || 'professional, balanced, engaging';
+        }
+
+        extractEmotion(subject) {
+            const emotionalKeywords = {
+                'dragon': 'majestic, powerful, mythical, intimidating',
+                'naga': 'mystical, elegant, serpentine, magical',
+                'character': 'expressive, relatable, human, emotional',
+                'person': 'lifelike, authentic, natural, human',
+                'woman': 'graceful, elegant, powerful, feminine',
+                'man': 'strong, masculine, determined, powerful',
+                'creature': 'unique, fascinating, otherworldly, intriguing',
+                'monster': 'fearsome, intimidating, powerful, monstrous'
+            };
+            
+            for (let [key, emotion] of Object.entries(emotionalKeywords)) {
+                if (subject.toLowerCase().includes(key)) {
+                    return emotion;
+                }
+            }
+            
+            return 'engaging, interesting, compelling';
+        }
+
+        buildNarrative(subject, environment) {
+            return `story of ${subject} in ${environment}, visual storytelling, narrative composition`;
+        }
+
+        determinePsychologicalImpact(thematic) {
+            const impactMap = {
+                'epic-heroic': 'inspiring awe, creating admiration, generating respect',
+                'mysterious-eerie': 'building suspense, creating curiosity, generating mystery',
+                'serene-calm': 'inducing peace, creating tranquility, promoting relaxation',
+                'tense-dramatic': 'building tension, creating excitement, generating anticipation',
+                'melancholic-lonely': 'evoking empathy, creating nostalgia, generating reflection',
+                'joyful-vibrant': 'spreading happiness, creating energy, generating positivity',
+                'futuristic-cyber': 'inspiring wonder, creating innovation, generating advancement',
+                'vintage-nostalgic': 'evoking memories, creating warmth, generating familiarity'
+            };
+            
+            return impactMap[thematic] || 'professional engagement, visual interest';
+        }
+
+        // FINAL PROMPT ASSEMBLY - ULTIMATE VERSION
+        assembleUltimatePrompt() {
+            const components = [];
+            
+            // 1. PRIMARY SUBJECT WITH WEIGHT
+            components.push(`(${this.visualHierarchy.primarySubject}${' '.repeat(Math.round((subjectWeight - 1.0) * 2))})`);
+            
+            // 2. SECONDARY ELEMENTS
+            if (this.visualHierarchy.secondaryElements.length > 0) {
+                components.push(this.visualHierarchy.secondaryElements.join(', '));
+            }
+            
+            // 3. BACKGROUND CONTEXT
+            if (this.visualHierarchy.backgroundContext) {
+                components.push(this.visualHierarchy.backgroundContext);
+            }
+            
+            // 4. CAMERA COMPOSITION
+            components.push(this.cameraComposition.shotType);
+            components.push(this.cameraComposition.lensType);
+            components.push(this.cameraComposition.cameraMovement);
+            components.push(this.cameraComposition.focusPoints.join(', '));
+            
+            // 5. LIGHTING SYSTEM
+            components.push(this.lightingSetup.mainLight);
+            components.push(this.lightingSetup.fillLight);
+            components.push(this.lightingSetup.backlight);
+            components.push(this.lightingSetup.ambientLight);
+            components.push(this.lightingSetup.moodLighting);
+            
+            // 6. TEXTURE SYSTEM
+            components.push(this.textureQuality.surfaceDetails.join(', '));
+            components.push(this.textureQuality.materialProperties.join(', '));
+            components.push(this.textureQuality.microDetails.join(', '));
+            
+            // 7. EMOTIONAL CONTEXT
+            components.push(this.emotionalContext.mood);
+            components.push(this.emotionalContext.emotion);
+            components.push(this.emotionalContext.narrative);
+            components.push(this.emotionalContext.psychological);
+            
+            // 8. ATMOSPHERIC ELEMENTS
+            if (this.visualHierarchy.atmosphericElements.length > 0) {
+                components.push(this.visualHierarchy.atmosphericElements.join(', '));
+            }
+            
+            return components.filter(comp => comp && comp.trim().length > 0).join(', ');
+        }
+    }
+
+    // =========================================================
+    // INTEGRATION WITH EXISTING SYSTEM
+    // =========================================================
+
+    const ultimateEngine = new UltimatePromptEngine();
+
+    function generateUltimatePrompt() {
+        runConflictDetection();
+        
+        // Auto-apply semua settings yang belum diapply
+        autoApplyAllSettings();
+        
+        let subject, action, environment;
+        
+        // Ambil input berdasarkan mode
+        if (inputMode === 'multi') {
+            subject = document.getElementById('main-subject').value.trim();
+            action = document.getElementById('action').value.trim();
+            environment = document.getElementById('environment').value.trim();
+            
+            if (!subject) {
+                showNotification('❌ ERROR: Subjek utama wajib diisi!', 'error');
+                return;
+            }
+        } else {
+            const singleInput = document.getElementById('single-input-area').value.trim();
+            if (!singleInput) {
+                showNotification('❌ ERROR: Prompt cepat wajib diisi!', 'error');
+                return;
+            }
+            
+            // Simple parsing untuk single input mode
+            const parts = singleInput.split(',').map(p => p.trim());
+            subject = parts[0] || '';
+            action = parts[1] || '';
+            environment = parts.slice(2).join(', ') || '';
+        }
+        
+        // JALANKAN ULTIMATE PROMPT ENGINE
+        ultimateEngine.analyzeVisualHierarchy(subject, action, environment);
+        ultimateEngine.buildCameraComposition(selectedCamera, selectedLens, selectedCameraAngle);
+        ultimateEngine.buildLightingSetup(selectedEffect, selectedThematic);
+        ultimateEngine.buildTextureSystem(selectedStyle, quantumIntensityValue);
+        ultimateEngine.buildEmotionalContext(selectedThematic, subject, environment);
+        
+        const ultimatePrompt = ultimateEngine.assembleUltimatePrompt();
+        
+        // TAMBAHKAN SETTING LAINNYA
+        let finalPrompt = ultimatePrompt;
+        finalPrompt += applyAllSettings();
+        finalPrompt += applyQualityBooster();
+        
+        // Tampilkan hasil
+        document.getElementById('promptOutput').value = finalPrompt;
+        
+        // Analytics
+        const componentCount = finalPrompt.split(',').length;
+        const wordCount = finalPrompt.split(' ').length;
+        
+        showNotification(`🤖 ULTIMATE PROMPT GENERATED! ${componentCount} components, ${wordCount} words - AI akan memahami SEMUA konteks visual!`, "success");
+        
+        // Debug info
+        console.log("🎯 ULTIMATE PROMPT COMPONENTS:");
+        console.log("- Visual Hierarchy:", ultimateEngine.visualHierarchy);
+        console.log("- Camera Composition:", ultimateEngine.cameraComposition);
+        console.log("- Lighting Setup:", ultimateEngine.lightingSetup);
+        console.log("- Texture System:", ultimateEngine.textureQuality);
+        console.log("- Emotional Context:", ultimateEngine.emotionalContext);
+    }
+
+    function autoApplyAllSettings() {
+        if (!isNegationApplied) applyNegativePrompt();
+        if (!isPlatformApplied) applyPlatformSettings();
+        if (!isStyleApplied) applyStyleSettings();
+        if (!isThematicApplied) applyThematicSettings();
+        if (!isRatioApplied) applyRatioSettings();
+        if (!isCameraApplied) applyModularCameraSettings();
+        if (!isCameraAngleApplied) applyCameraAngleSettings();
+        if (!isHumanApplied) applyHumanRealitySettingsCustom();
+        if (!isTransformationApplied) applyTransformationSettingsCustom();
+        if (!isQualityApplied) applyQualitySettings();
+    }
+
+    // =========================================================
+    // CONFLICT DETECTION ENGINE - REAL WORKING VERSION
+    // =========================================================
+
+    // Enhanced conflict patterns dengan deteksi yang LEBIH AKURAT
+    const conflictPatterns = [
+        {
+            name: "FANTASY_SUBJECT_REAL_STYLE",
+            condition: (subject, style, platform, camera) => {
+                const fantasyKeywords = ['naga', 'dragon', 'magic', 'fantasy', 'mythical', 'wizard', 'spell', 'magical', 'enchanted', 'elf', 'dwarf', 'orc', 'monster'];
+                const hasFantasy = fantasyKeywords.some(keyword => 
+                    subject.toLowerCase().includes(keyword.toLowerCase())
+                );
+                return hasFantasy && style === 'real-photography';
+            },
+            message: "❌ KONFLIK DITEMUKAN: Subjek FANTASY dengan gaya REAL PHOTOGRAPHY",
+            solution: "Ganti gaya ke FANTASY DIGITAL atau HYPER REALISTIC untuk hasil optimal",
+            severity: "high",
+            autoFix: () => {
+                selectedStyle = 'fantasy-digital';
+                updateStyleSelection();
+                return "Style otomatis diganti ke FANTASY DIGITAL";
+            }
+        },
+        {
+            name: "REAL_SUBJECT_ANIME_STYLE", 
+            condition: (subject, style, platform, camera) => {
+                const realKeywords = ['photograph', 'documentary', 'realistic', 'authentic', 'natural', 'real life', 'actual', 'true to life'];
+                const hasReal = realKeywords.some(keyword => 
+                    subject.toLowerCase().includes(keyword.toLowerCase())
+                );
+                return hasReal && style === 'anime-manga';
+            },
+            message: "⚠️ Konflik: Kata kunci REALISTIC dengan gaya ANIME",
+            solution: "Hapus kata realistic atau ganti gaya ke REAL PHOTOGRAPHY",
+            severity: "medium",
+            autoFix: () => {
+                selectedStyle = 'real-photography';
+                updateStyleSelection();
+                return "Style otomatis diganti ke REAL PHOTOGRAPHY";
+            }
+        },
+        {
+            name: "DALLE_ANIME_LIMITATION",
+            condition: (subject, style, platform, camera) => {
+                return platform === 'dalle' && style === 'anime-manga';
+            },
+            message: "🤖 PLATFORM KONFLIK: DALL-E 3 kurang optimal untuk style ANIME/MANGA",
+            solution: "Ganti platform ke Midjourney atau Leonardo AI untuk hasil anime terbaik",
+            severity: "medium",
+            autoFix: () => {
+                selectedPlatform = 'midjourney';
+                updatePlatformSelection();
+                return "Platform otomatis diganti ke Midjourney untuk hasil anime terbaik";
+            }
+        },
+        {
+            name: "CARTOON_SERIOUS_THEME",
+            condition: (subject, style, platform, camera) => {
+                const seriousKeywords = ['serious', 'dramatic', 'dark', 'horror', 'tragic', 'gritty', 'blood', 'violence', 'war'];
+                const hasSerious = seriousKeywords.some(keyword => 
+                    subject.toLowerCase().includes(keyword.toLowerCase())
+                );
+                return hasSerious && style === 'cartoon-3d';
+            },
+            message: "🎭 TEMA KONFLIK: Gaya CARTOON 3D kurang cocok untuk tema SERIOUS/DARK",
+            solution: "Ganti gaya ke REAL PHOTOGRAPHY atau HYPER REALISTIC untuk tema serius",
+            severity: "medium",
+            autoFix: () => {
+                selectedStyle = 'real-photography';
+                updateStyleSelection();
+                return "Style otomatis diganti ke REAL PHOTOGRAPHY untuk tema serius";
+            }
+        },
+        {
+            name: "PRO_CAMERA_ANIME_STYLE",
+            condition: (subject, style, platform, camera) => {
+                const proCameras = ['ARRI ALEXA 65', 'RED Komodo 6K', 'Canon EOS R5', 'Sony A7R V', 'Hasselblad X1D II', 'Phase One XT'];
+                return proCameras.includes(camera) && style === 'anime-manga';
+            },
+            message: "📷 KAMERA KONFLIK: Kamera profesional tidak optimal untuk style ANIME",
+            solution: "Ganti kamera ke lensa kreatif atau artistic untuk style anime",
+            severity: "low",
+            autoFix: () => {
+                selectedCamera = '50mm f/1.4';
+                updateCameraSelection();
+                return "Kamera otomatis diganti ke 50mm f/1.4 untuk style anime";
+            }
+        },
+        {
+            name: "LOW_INTENSITY_HIGH_DETAIL",
+            condition: (subject, style, platform, camera) => {
+                const detailKeywords = ['detailed', 'intricate', 'complex', 'high detail', 'ultra detailed'];
+                const hasDetail = detailKeywords.some(keyword => 
+                    subject.toLowerCase().includes(keyword.toLowerCase())
+                );
+                return hasDetail && quantumIntensityValue < 5;
+            },
+            message: "⚡ INTENSITY KONFLIK: Permintaan DETAIL tinggi tetapi Intensity rendah",
+            solution: "Tingkatkan Quantum Intensity ke 7+ untuk detail maksimal",
+            severity: "low",
+            autoFix: () => {
+                quantumIntensityValue = 8;
+                document.getElementById('intensitySlider').value = 8;
+                document.getElementById('intensityValue').textContent = '8';
+                return "Quantum Intensity dinaikkan ke 8 untuk detail maksimal";
+            }
+        },
+        {
+            name: "INAPPROPRIATE_ANGLE_FOR_SUBJECT",
+            condition: (subject, style, platform, camera) => {
+                const smallSubjects = ['child', 'baby', 'kitten', 'puppy', 'small animal', 'tiny'];
+                const hasSmallSubject = smallSubjects.some(keyword => 
+                    subject.toLowerCase().includes(keyword.toLowerCase())
+                );
+                return hasSmallSubject && selectedCameraAngle === 'low-angle';
+            },
+            message: "❌ ANGLE KONFLIK: Low Angle tidak cocok untuk subjek kecil",
+            solution: "Ganti angle ke Eye Level atau High Angle untuk subjek kecil",
+            severity: "medium",
+            autoFix: () => {
+                selectedCameraAngle = 'eye-level';
+                updateCameraAngleSelection();
+                return "Angle otomatis diganti ke Eye Level untuk subjek kecil";
+            }
+        },
+        {
+            name: "HERO_ANGLE_FOR_VULNERABLE_SUBJECT", 
+            condition: (subject, style, platform, camera) => {
+                const vulnerableKeywords = ['victim', 'scared', 'afraid', 'terrified', 'weak', 'injured'];
+                const hasVulnerable = vulnerableKeywords.some(keyword => 
+                    subject.toLowerCase().includes(keyword.toLowerCase())
+                );
+                return hasVulnerable && selectedCameraAngle === 'low-angle';
+            },
+            message: "⚠️ ANGLE KONFLIK: Low Angle membuat subjek vulnerable terlihat heroic",
+            solution: "Ganti angle ke High Angle untuk menekankan vulnerability",
+            severity: "medium",
+            autoFix: () => {
+                selectedCameraAngle = 'high-angle';
+                updateCameraAngleSelection();
+                return "Angle otomatis diganti ke High Angle untuk subjek vulnerable";
+            }
+        }
+    ];
+
+    // REAL-TIME CONFLICT DETECTION YANG BENAR-BENAR BEKERJA
+    function runConflictDetection() {
+        if (currentLevel !== 'quantum') {
+            document.getElementById('conflict-detector-container').style.display = 'none';
+            return;
+        }
+        
+        document.getElementById('conflict-detector-container').style.display = 'block';
+        
+        let subjectText = '';
+        if (inputMode === 'multi') {
+            subjectText = document.getElementById('main-subject').value;
+        } else {
+            subjectText = document.getElementById('single-input-area').value;
+        }
+
+        // Jika tidak ada input, reset conflict detector
+        if (!subjectText.trim()) {
+            updateConflictUI([], [], []);
+            return;
+        }
+
+        const conflicts = [];
+        const solutions = [];
+        const suggestions = [];
+
+        // Check all conflict patterns - DIPERBAHARUI
+        conflictPatterns.forEach(pattern => {
+            if (pattern.condition(subjectText, selectedStyle, selectedPlatform, selectedCamera)) {
+                conflicts.push({
+                    message: pattern.message,
+                    solution: pattern.solution,
+                    severity: pattern.severity,
+                    autoFix: pattern.autoFix
+                });
+            }
+        });
+
+        // Enhanced smart suggestions - DIPERBAHARUI
+        if (subjectText.toLowerCase().includes('portrait') || subjectText.toLowerCase().includes('face') || subjectText.toLowerCase().includes('person')) {
+            suggestions.push("💡 **PORTRAIT TIP:** Gunakan lensa 85mm f/1.2 untuk bokeh maksimal dan fokus pada detail wajah");
+            if (!selectedLens.includes('85mm')) {
+                suggestions.push("📸 **REKOMENDASI LENSA:** Switch ke 85mm f/1.2 untuk portrait terbaik");
+            }
+        }
+        
+        if (subjectText.toLowerCase().includes('landscape') || subjectText.toLowerCase().includes('mountain') || subjectText.toLowerCase().includes('view')) {
+            suggestions.push("🏞️ **LANDSCAPE TIP:** Gunakan wide-angle lens (16-35mm) dan small aperture (f/8-f/16) untuk depth of field maksimal");
+            if (!selectedLens.includes('16mm') && !selectedLens.includes('35mm')) {
+                suggestions.push("🌄 **REKOMENDASI LENSA:** Switch ke 16mm f/2.8 untuk landscape epik");
+            }
+        }
+        
+        if (subjectText.toLowerCase().includes('action') || subjectText.toLowerCase().includes('fighting') || subjectText.toLowerCase().includes('running')) {
+            suggestions.push("⚡ **ACTION TIP:** Tambahkan motion blur dan gunakan shutter speed cepat untuk membekukan gerakan");
+        }
+        
+        if (subjectText.toLowerCase().includes('night') || subjectText.toLowerCase().includes('dark') || subjectText.toLowerCase().includes('moon')) {
+            suggestions.push("🌙 **NIGHT TIP:** Gunakan low-key lighting dan high ISO untuk atmosfer gelap yang dramatis");
+        }
+
+        // Update UI dengan hasil REAL
+        updateConflictUI(conflicts, solutions, suggestions);
+    }
+
+    // IMPROVED UI UPDATE FUNCTION
+    function updateConflictUI(conflicts, solutions, suggestions) {
+        const conflictList = document.getElementById('conflict-list');
+        const solutionList = document.getElementById('solution-list');
+        const suggestionBox = document.getElementById('suggestion-box');
+
+        // Clear previous results
+        conflictList.innerHTML = '';
+        solutionList.innerHTML = '';
+        suggestionBox.innerHTML = '';
+
+        // Show conflicts - DIPERBAHARUI
+        if (conflicts.length > 0) {
+            let conflictsHTML = '<h4 style="color: var(--danger); margin-bottom: 10px;">🚨 KONFLIK TERDETEKSI:</h4>';
+            conflicts.forEach((conflict, index) => {
+                const severityIcon = conflict.severity === 'high' ? '🔴' : conflict.severity === 'medium' ? '🟡' : '🔵';
+                conflictsHTML += `<div class="conflict-item">
+                    <strong>${severityIcon} ${conflict.message}</strong>
+                    <div style="margin-top: 5px; font-size: 0.9em;">${conflict.solution}</div>
+                </div>`;
+            });
+            conflictList.innerHTML = conflictsHTML;
+        } else {
+            conflictList.innerHTML = '<div style="color: var(--quantum); padding: 10px; text-align: center;">✅ <strong>Tidak ada konflik terdeteksi!</strong><br>Semua setting harmonis dan optimal!</div>';
+        }
+
+        // Show solutions if there are conflicts - DIPERBAHARUI
+        if (conflicts.length > 0) {
+            let solutionsHTML = '<h4 style="color: var(--quantum); margin-bottom: 10px;">🔧 SOLUSI CEPAT:</h4>';
+            conflicts.forEach((conflict, index) => {
+                solutionsHTML += `<div class="solution-item">
+                    <strong>${conflict.solution}</strong>
+                    <button onclick="applyAutoSolution(${index})" style="margin-left: 10px; padding: 8px 15px; background: var(--quantum); color: black; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9em; font-weight: bold;">TERAPKAN OTOMATIS</button>
+                </div>`;
+            });
+            solutionList.innerHTML = solutionsHTML;
+        } else {
+            solutionList.innerHTML = '';
+        }
+
+        // Show suggestions - DIPERBAHARUI
+        if (suggestions.length > 0) {
+            let suggestionsHTML = '<h4 style="color: var(--gold); margin-bottom: 10px;">💡 SARAN EXPERT AI:</h4>';
+            suggestions.forEach(suggestion => {
+                suggestionsHTML += `<div style="margin: 8px 0; padding: 10px; background: rgba(255,195,0,0.1); border-radius: 8px; border-left: 3px solid var(--gold);">${suggestion}</div>`;
+            });
+            suggestionBox.innerHTML = suggestionsHTML;
+        } else {
+            suggestionBox.innerHTML = '<div style="color: var(--text-secondary); padding: 10px; text-align: center;">💡 Ketik deskripsi untuk dapatkan saran expert AI</div>';
+        }
+    }
+
+    // IMPROVED AUTO SOLUTION FUNCTION
+    function applyAutoSolution(index) {
+        let subjectText = '';
+        if (inputMode === 'multi') {
+            subjectText = document.getElementById('main-subject').value;
+        } else {
+            subjectText = document.getElementById('single-input-area').value;
+        }
+
+        const conflicts = [];
+        conflictPatterns.forEach(pattern => {
+            if (pattern.condition(subjectText, selectedStyle, selectedPlatform, selectedCamera)) {
+                conflicts.push(pattern);
+            }
+        });
+
+        if (conflicts[index] && conflicts[index].autoFix) {
+            const resultMessage = conflicts[index].autoFix();
+            showNotification(`✅ AUTO-FIX: ${resultMessage}`, "success");
+            
+            // Re-run conflict detection after auto-fix
+            setTimeout(runConflictDetection, 500);
+        }
+    }
+
+    // =========================================================
+    // ENHANCED EVENT LISTENERS UNTUK REAL-TIME DETECTION
+    // =========================================================
+
+    function initializeConflictDetection() {
+        // Real-time detection untuk semua input fields
+        const detectionElements = [
+            'main-subject', 'action', 'environment', 'single-input-area',
+            'negative-prompt', 'human-details', 'transformation-tags-input'
+        ];
+        
+        detectionElements.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.addEventListener('input', runConflictDetection);
+                element.addEventListener('change', runConflictDetection);
+            }
+        });
+
+        // Enhanced detection untuk semua setting changes
+        document.querySelectorAll('.platform-card, .style-card, .ratio-card, .modular-card, .level').forEach(element => {
+            element.addEventListener('click', function() {
+                setTimeout(runConflictDetection, 100);
+            });
+        });
+
+        // Slider changes
+        document.querySelectorAll('.intensity-slider, .subject-weight-slider').forEach(slider => {
+            slider.addEventListener('input', runConflictDetection);
+        });
+
+        console.log("🚨 SMART CONFLICT DETECTOR ACTIVATED - REAL-TIME MONITORING ENABLED");
+    }
+
+    // =========================================================
+    // QUALITY BOOSTER FUNCTIONS
+    // =========================================================
+
+    function selectQualityOption(element, quality) {
+        document.querySelectorAll('.quality-option').forEach(opt => opt.classList.remove('selected'));
+        element.classList.add('selected');
+        qualityPreset = quality;
+    }
+
+    function selectQualityPreset(element, quality) {
+        document.querySelectorAll('.style-card[data-quality]').forEach(card => card.classList.remove('selected'));
+        element.classList.add('selected');
+        qualityPreset = quality;
+        
+        // Auto-set sharpness based on quality preset
+        if (quality === 'ultra') {
+            sharpnessValue = 10;
+        } else if (quality === 'high') {
+            sharpnessValue = 8;
+        } else {
+            sharpnessValue = 6;
+        }
+        
+        document.getElementById('sharpnessSlider').value = sharpnessValue;
+        document.getElementById('sharpnessValue').textContent = sharpnessValue;
+    }
+
+    function updateSharpness(value) {
+        sharpnessValue = parseInt(value);
+        document.getElementById('sharpnessValue').textContent = value;
+    }
+
+    function applyQualitySettings() {
+        isQualityApplied = true;
+        extraQualityTags = document.getElementById('extra-quality-tags').value.trim();
+        
+        let qualityName = '';
+        if (qualityPreset === 'ultra') qualityName = 'ULTRA QUALITY (16K MAX)';
+        else if (qualityPreset === 'high') qualityName = 'HIGH QUALITY (8K)';
+        else qualityName = 'BALANCED (4K)';
+        
+        document.getElementById('quality-status').textContent = `✅ Applied: ${qualityName} | Sharpness: ${sharpnessValue}/10`;
+        document.getElementById('quality-status').className = 'setting-status status-applied';
+        showNotification('Quality Booster Settings Applied!');
+    }
+
+    // =========================================================
+    // CAMERA ANGLES FUNCTIONS
+    // =========================================================
+
+    function selectCameraAngle(element, angle) {
+        selectedCameraAngle = angle;
+        document.querySelectorAll('.modular-card[data-group="angle"]').forEach(el => el.classList.remove('selected'));
+        element.classList.add('selected');
+        runConflictDetection();
+    }
+
+    function updateCameraAngleSelection() {
+        document.querySelectorAll('.modular-card[data-group="angle"]').forEach(card => card.classList.remove('selected'));
+        const targetCard = document.querySelector(`.modular-card[data-group="angle"][data-value*="${selectedCameraAngle.replace('-', ' ')}"]`);
+        if (targetCard) targetCard.classList.add('selected');
+    }
+
+    function applyCameraAngleSettings() {
+        isCameraAngleApplied = true;
+        const angleName = document.querySelector('.modular-card[data-group="angle"].selected p').textContent;
+        
+        document.getElementById('camera-angle-status').textContent = `✅ Applied: ${angleName} - Camera Angle Master`;
+        document.getElementById('camera-angle-status').className = 'setting-status status-applied';
+        showNotification('Camera Angles Master Settings Applied!');
+    }
+
+    // =========================================================
+    // FUNGSI GENERATE PROMPT YANG LENGKAP
+    // =========================================================
+
+    function generatePrompt() {
+        runConflictDetection();
+        
+        // Auto-apply settings jika belum diapply
+        if (!isNegationApplied) applyNegativePrompt();
+        if (!isPlatformApplied) applyPlatformSettings();
+        if (!isStyleApplied) applyStyleSettings();
+        if (!isThematicApplied) applyThematicSettings();
+        if (!isRatioApplied) applyRatioSettings();
+        if (!isCameraApplied) applyModularCameraSettings();
+        if (!isCameraAngleApplied) applyCameraAngleSettings();
+        if (!isHumanApplied) applyHumanRealitySettingsCustom();
+        if (!isTransformationApplied) applyTransformationSettingsCustom();
+        if (!isQualityApplied) applyQualitySettings();
+
+        let prompt = '';
+        
+        // Ambil input berdasarkan mode
+        if (inputMode === 'multi') {
+            const subject = document.getElementById('main-subject').value.trim();
+            const action = document.getElementById('action').value.trim();
+            const environment = document.getElementById('environment').value.trim();
+            
+            if (!subject) {
+                showNotification('❌ ERROR: Subjek utama wajib diisi!', 'error');
+                return;
+            }
+            
+            // Bangun prompt berdasarkan level AI
+            if (currentLevel === 'quantum') {
+                prompt = buildQuantumPrompt(subject, action, environment);
+            } else if (currentLevel === 'master') {
+                prompt = buildMasterPrompt(subject, action, environment);
+            } else {
+                prompt = buildBasicPrompt(subject, action, environment);
+            }
+            
+        } else {
+            const singleInput = document.getElementById('single-input-area').value.trim();
+            
+            if (!singleInput) {
+                showNotification('❌ ERROR: Prompt cepat wajib diisi!', 'error');
+                return;
+            }
+            
+            if (currentLevel === 'quantum') {
+                prompt = expandSinglePrompt(singleInput);
+            } else {
+                prompt = singleInput;
+            }
+        }
+
+        // Tambahkan semua setting yang sudah diapply
+        prompt += applyAllSettings();
+        
+        // Tampilkan hasil
+        document.getElementById('promptOutput').value = prompt;
+        showNotification("🤖 AI EXPERT PROMPT GENERATED dengan 16K Quality Booster!", "success");
+    }
+
+    function buildQuantumPrompt(subject, action, environment) {
+        let prompt = '';
+        
+        // Subject dengan weight
+        if (subjectWeight > 1.0) {
+            prompt += `(${subject}${' '.repeat(Math.round((subjectWeight - 1.0) * 2))})`;
+        } else {
+            prompt += subject;
+        }
+        
+        // Action dan Environment
+        if (action) prompt += `, ${action}`;
+        if (environment) prompt += `, ${environment}`;
+        
+        // AI Enhancement berdasarkan konten
+        if (subject.toLowerCase().includes('dragon') || subject.toLowerCase().includes('naga')) {
+            prompt += ', intricate scales, detailed wings, mythical creature, fantasy artwork';
+        }
+        if (subject.toLowerCase().includes('portrait') || subject.toLowerCase().includes('face')) {
+            prompt += ', detailed facial features, expressive eyes, professional portrait lighting';
+        }
+        if (subject.toLowerCase().includes('landscape') || environment.toLowerCase().includes('mountain')) {
+            prompt += ', epic scale, vast horizon, atmospheric perspective';
+        }
+        
+        return prompt;
+    }
+
+    function buildMasterPrompt(subject, action, environment) {
+        return `${subject}${action ? ', ' + action : ''}${environment ? ', ' + environment : ''}, professional composition, detailed rendering`;
+    }
+
+    function buildBasicPrompt(subject, action, environment) {
+        return `${subject}${action ? ', ' + action : ''}${environment ? ', ' + environment : ''}`;
+    }
+
+    function expandSinglePrompt(singleInput) {
+        // Simple AI expansion untuk single input
+        let expanded = singleInput;
+        
+        // Deteksi jenis konten dan tambahkan enhancement
+        if (singleInput.toLowerCase().includes('dragon') || singleInput.toLowerCase().includes('fantasy')) {
+            expanded += ', fantasy epic scene, magical atmosphere, detailed creature design';
+        } else if (singleInput.toLowerCase().includes('portrait') || singleInput.toLowerCase().includes('person')) {
+            expanded += ', professional portrait, studio lighting, detailed facial features';
+        } else if (singleInput.toLowerCase().includes('car') || singleInput.toLowerCase().includes('vehicle')) {
+            expanded += ', automotive photography, sleek design, reflective surfaces';
+        } else if (singleInput.toLowerCase().includes('landscape') || singleInput.toLowerCase().includes('nature')) {
+            expanded += ', scenic view, natural lighting, environmental details';
+        }
+        
+        return expanded;
+    }
+
+    function applyAllSettings() {
+        let settings = '';
+        
+        // Platform specific settings
+        if (selectedPlatform === 'midjourney') {
+            settings += ` --ar ${selectedRatio} --style ${mjStylizeValue}`;
+            if (quantumIntensityValue >= 8) {
+                settings += ' --quality 2';
+            }
+        }
+        
+        // Style settings
+        const styleMap = {
+            'fantasy-digital': 'digital painting, concept art, fantasy illustration',
+            'real-photography': 'photorealistic, professional photography, realistic lighting',
+            'hyper-realistic': 'hyperdetailed, 8K resolution, ultra realistic',
+            'anime-manga': 'anime style, manga artwork, Japanese animation',
+            'cartoon-3d': '3D render, Pixar style, cartoon shading',
+            'hybrid': 'mixed media, digital hybrid, artistic fusion',
+            'stylized': 'stylized artwork, artistic interpretation'
+        };
+        
+        if (styleMap[selectedStyle]) {
+            settings += `, ${styleMap[selectedStyle]}`;
+            
+            // Blending intensity untuk realism
+            if (blendingIntensity > 1.0 && selectedStyle !== 'real-photography') {
+                settings += `, realistic textures, detailed materials, subsurface scattering`.repeat(blendingIntensity - 1);
+            }
+        }
+        
+        // Thematic settings
+        const thematicMap = {
+            'epic-heroic': 'epic scale, heroic composition, dramatic lighting',
+            'mysterious-eerie': 'mysterious atmosphere, eerie mood, haunting ambiance',
+            'serene-calm': 'peaceful scene, calm mood, soft lighting',
+            'tense-dramatic': 'dynamic action, intense moment, dramatic tension',
+            'melancholic-lonely': 'melancholic mood, lonely atmosphere, emotional depth',
+            'joyful-vibrant': 'vibrant colors, joyful mood, energetic composition',
+            'futuristic-cyber': 'cyberpunk aesthetic, futuristic technology, neon lighting',
+            'vintage-nostalgic': 'vintage style, nostalgic mood, retro aesthetic'
+        };
+        
+        if (thematicMap[selectedThematic]) {
+            settings += `, ${thematicMap[selectedThematic]}`;
+        }
+        
+        // Camera settings
+        if (isCameraApplied) {
+            settings += `, ${selectedCamera}, ${selectedLens}, ${selectedEffect}`;
+        }
+        
+        // Camera angles settings
+        if (isCameraAngleApplied) {
+            const angleMap = {
+                'eye-level': 'eye level view, natural perspective',
+                'low-angle': 'low angle shot, looking up, heroic perspective',
+                'high-angle': 'high angle shot, looking down, overhead perspective', 
+                'dutch-angle': 'dutch angle, tilted camera, dramatic composition',
+                'birds-eye': "bird's eye view, top-down perspective, aerial view",
+                'worms-eye': "worm's eye view, extreme low angle, ground level perspective",
+                'shoulder-level': 'shoulder level shot, intimate perspective',
+                'hip-level': 'hip level shot, western style perspective',
+                'pov': 'point of view shot, first person perspective',
+                'over-shoulder': 'over the shoulder shot, conversational perspective',
+                'canted-oblique': 'canted oblique angle, dynamic composition',
+                'isometric': 'isometric perspective, top-down diagonal view'
+            };
+            
+            if (angleMap[selectedCameraAngle]) {
+                settings += `, ${angleMap[selectedCameraAngle]}`;
+            }
+        }
+        
+        // Human reality settings
+        if (appliedHumanRealitySettings) {
+            settings += `, ${appliedHumanRealitySettings}`;
+        }
+        
+        // Transformation tags
+        if (appliedTransformationTags.length > 0) {
+            settings += `, ${appliedTransformationTags.join(', ')}`;
+        }
+        
+        // QUALITY BOOSTER - PENAMBAHAN UTAMA UNTUK KUALITAS TINGGI
+        settings += applyQualityBooster();
+        
+        // Quantum intensity
+        if (quantumIntensityValue >= 8) {
+            settings += ', 8K resolution, UHD, highly detailed, intricate details';
+        } else if (quantumIntensityValue >= 5) {
+            settings += ', 4K resolution, detailed, sharp focus';
+        }
+        
+        // Custom atmospheric tags
+        if (customAtmosphericTags) {
+            settings += `, ${customAtmosphericTags}`;
+        }
+        
+        return settings;
+    }
+
+    // FUNGSI QUALITY BOOSTER
+    function applyQualityBooster() {
+        let qualitySettings = '';
+        
+        // Quality preset based settings
+        if (qualityPreset === 'ultra') {
+            qualitySettings += ', 16K resolution, ultra high detail, master quality, professional grade, extremely detailed, sharp focus, crisp details, tack sharp, hyperrealistic, megapixel, studio quality, no blur, no noise, perfect clarity';
+            
+            // Extra sharpness for ultra quality
+            if (sharpnessValue >= 8) {
+                qualitySettings += ', razor sharp, extreme sharpness, crystal clear';
+            }
+        } 
+        else if (qualityPreset === 'high') {
+            qualitySettings += ', 8K resolution, high detail, professional quality, highly detailed, sharp focus, crisp details, clear image, no blur';
+            
+            if (sharpnessValue >= 7) {
+                qualitySettings += ', very sharp, excellent clarity';
+            }
+        } 
+        else {
+            qualitySettings += ', 4K resolution, good detail, balanced quality, detailed, sharp focus';
+        }
+        
+        // Sharpness intensity
+        if (sharpnessValue >= 9) {
+            qualitySettings += ', extreme sharpness, maximum clarity, perfect focus';
+        } else if (sharpnessValue >= 7) {
+            qualitySettings += ', very sharp, excellent clarity';
+        } else if (sharpnessValue >= 5) {
+            qualitySettings += ', sharp, good clarity';
+        }
+        
+        // Extra quality tags
+        if (extraQualityTags) {
+            qualitySettings += `, ${extraQualityTags}`;
+        }
+        
+        return qualitySettings;
+    }
+
+    // =========================================================
+    // FUNGSI UTILITAS DAN UI
+    // =========================================================
+
+    function showNotification(message, type = 'success') {
+        const existing = document.querySelector('.notification-toast');
+        if (existing) existing.remove();
+        
+        const notification = document.createElement('div');
+        notification.className = `notification-toast ${type}`;
+        notification.innerHTML = `🎯 ${message}`;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => notification.classList.add('show'), 100);
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
+
+    function openTab(tabId, element) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        element.classList.add('active');
+    }
+
+    function selectLevel(element, level) {
+        currentLevel = level;
+        document.querySelectorAll('.level').forEach(el => el.classList.remove('selected'));
+        element.classList.add('selected');
+        runConflictDetection();
+    }
+
+    function switchInputMode(mode) {
+        inputMode = mode;
+        const multiContainer = document.getElementById('multi-input-container');
+        const singleContainer = document.getElementById('single-input-container');
+        const multiBtn = document.getElementById('mode-multi-btn');
+        const singleBtn = document.getElementById('mode-single-btn');
+
+        if (mode === 'single') {
+            multiContainer.style.display = 'none';
+            singleContainer.style.display = 'grid'; 
+            singleBtn.classList.add('active');
+            multiBtn.classList.remove('active');
+        } else {
+            multiContainer.style.display = 'grid'; 
+            singleContainer.style.display = 'none';
+            multiBtn.classList.add('active');
+            singleBtn.classList.remove('active');
+        }
+        runConflictDetection();
+    }
+
+    function updateSubjectWeight(value) {
+        subjectWeight = parseFloat(value);
+        document.getElementById('subjectWeightValue').textContent = value;
+        document.getElementById('singleSubjectWeightValue').textContent = value;
+    }
+
+    function selectPlatform(element, platform) {
+        selectedPlatform = platform;
+        document.querySelectorAll('.platform-card').forEach(el => el.classList.remove('selected'));
+        element.classList.add('selected');
+        runConflictDetection();
+    }
+
+    function updatePlatformSelection() {
+        document.querySelectorAll('.platform-card').forEach(card => card.classList.remove('selected'));
+        document.querySelector(`.platform-card[data-platform="${selectedPlatform}"]`).classList.add('selected');
+    }
+
+    function updateIntensity(value) {
+        quantumIntensityValue = value;
+        document.getElementById('intensityValue').textContent = value;
+    }
+
+    function applyPlatformSettings() {
+        mjStylizeValue = document.getElementById('mj-stylize').value;
+        isPlatformApplied = true;
+        document.getElementById('platform-status').textContent = `✅ Applied: Platform ${selectedPlatform.toUpperCase()}, Intensity ${quantumIntensityValue}, MJ Stylize ${mjStylizeValue}`;
+        document.getElementById('platform-status').className = 'setting-status status-applied';
+        showNotification('Platform & Intensity Settings Applied!');
+    }
+
+    function selectStyle(element, style) {
+        selectedStyle = style;
+        document.querySelectorAll('.style-card').forEach(el => el.classList.remove('selected'));
+        element.classList.add('selected');
+        runConflictDetection();
+    }
+
+    function updateStyleSelection() {
+        document.querySelectorAll('.style-card').forEach(card => card.classList.remove('selected'));
+        document.querySelector(`.style-card[data-style="${selectedStyle}"]`).classList.add('selected');
+    }
+
+    function updateBlendingIntensity(value) {
+        blendingIntensity = parseFloat(value);
+        document.getElementById('blendingValue').textContent = value;
+    }
+
+    function applyStyleSettings() {
+        isStyleApplied = true;
+        let styleName = document.querySelector(`.style-card[data-style="${selectedStyle}"] p`).textContent;
+        let statusText = `✅ Applied: ${styleName}. REALISM BOBOT: ${blendingIntensity}/2.0 (Dynamic Weighting)`;
+        document.getElementById('style-status').textContent = statusText;
+        document.getElementById('style-status').className = 'setting-status status-applied';
+        showNotification('Visual Style Engine Settings Applied!');
+    }
+
+    function selectThematic(element, thematic) {
+        selectedThematic = thematic;
+        document.querySelectorAll('.style-card[data-thematic]').forEach(el => el.classList.remove('selected'));
+        element.classList.add('selected');
+    }
+
+    function applyThematicSettings() {
+        isThematicApplied = true;
+        customAtmosphericTags = document.getElementById('custom-atmospheric').value.trim();
+        const thematicName = document.querySelector(`.style-card[data-thematic="${selectedThematic}"] p`).textContent;
+        
+        document.getElementById('thematic-status').textContent = `✅ Applied: Thematic Core "${thematicName}" ${customAtmosphericTags ? '+ Custom Atmospheric Tags' : ''}`;
+        document.getElementById('thematic-status').className = 'setting-status status-applied';
+        showNotification('Thematic Core Settings Applied!');
+    }
+
+    function selectRatio(element, ratio) {
+        selectedRatio = ratio;
+        document.querySelectorAll('.ratio-card').forEach(el => el.classList.remove('selected'));
+        element.classList.add('selected');
+    }
+
+    function applyRatioSettings() {
+        isRatioApplied = true;
+        document.getElementById('ratio-status').textContent = `✅ Applied: Aspect Ratio ${selectedRatio} (MJ: --ar ${selectedRatio.replace(':', ':')}).`;
+        document.getElementById('ratio-status').className = 'setting-status status-applied';
+        showNotification('Aspect Ratio Settings Applied!');
+    }
+
+    function selectModularCard(element) {
+        const group = element.getAttribute('data-group');
+        const value = element.getAttribute('data-value');
+        
+        document.querySelectorAll(`.modular-card[data-group="${group}"]`).forEach(el => el.classList.remove('selected'));
+        element.classList.add('selected');
+
+        if (group === 'camera') selectedCamera = value;
+        if (group === 'lens') selectedLens = value;
+        if (group === 'effect') selectedEffect = value;
+        
+        runConflictDetection();
+    }
+
+    function updateCameraSelection() {
+        document.querySelectorAll('.modular-card[data-group="camera"]').forEach(card => card.classList.remove('selected'));
+        const targetCard = document.querySelector(`.modular-card[data-group="camera"][data-value="${selectedCamera}"]`);
+        if (targetCard) targetCard.classList.add('selected');
+    }
+
+    function applyModularCameraSettings() {
+        isCameraApplied = true; 
+        document.getElementById('camera-status').textContent = `✅ Applied: ${selectedCamera} + ${selectedLens} + ${selectedEffect.split(',')[0].trim()}. (MAX COMBINATIONS)`;
+        document.getElementById('camera-status').className = 'setting-status status-applied';
+        showNotification('Modular Camera Builder Settings Applied!');
+    }
+
+    function applyNegativePrompt() {
+        isNegationApplied = true;
+        appliedNegativePrompt = document.getElementById('negative-prompt').value.trim();
+        document.getElementById('negation-status').textContent = `✅ Applied: NEGATION ENGINE aktif. ${appliedNegativePrompt.split(',').length} tags distorsi dihindari.`;
+        document.getElementById('negation-status').className = 'setting-status status-applied';
+        showNotification('Negative Prompt Applied! Kualitas Anti-Distorsi Max!');
+    }
+
+    function applyHumanRealitySettingsCustom() { 
+        isHumanApplied = true;
+        const details = document.getElementById('human-details').value.trim();
+        const booster = document.getElementById('human-booster-tags').value.trim();
+        appliedHumanRealitySettings = [details, booster].filter(p => p).join(', ');
+        
+        document.getElementById('human-status').textContent = '✅ Applied: Flawless Skin & Face Consistency Booster.';
+        document.getElementById('human-status').className = 'setting-status status-applied';
+        showNotification('Human Reality Settings Applied!');
+    }
+
+    function switchTransformationMode(mode) {
+        transformationMode = mode;
+        const manualBtn = document.getElementById('manual-mode-btn');
+        const autoBtn = document.getElementById('auto-mode-btn');
+        const recommendations = document.getElementById('ai-recommendations');
+
+        if (mode === 'manual') {
+            manualBtn.classList.add('active');
+            autoBtn.classList.remove('active');
+            recommendations.style.display = 'none';
+        } else {
+            manualBtn.classList.remove('active');
+            autoBtn.classList.add('active');
+            recommendations.style.display = 'block';
+        }
+    }
+
+    function applyTransformationSettingsCustom() {
+        isTransformationApplied = true;
+        let tagsInput = document.getElementById('transformation-tags-input').value.trim();
+        appliedTransformationTags = tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+        
+        document.getElementById('transformation-status').textContent = `✅ Applied: ${appliedTransformationTags.length} Custom Rendering Tags added.`;
+        document.getElementById('transformation-status').className = 'setting-status status-applied';
+        showNotification('Transformation Tags Applied!');
+    }
+
+    function copyToClipboard() {
+        const output = document.getElementById('promptOutput');
+        output.select();
+        document.execCommand('copy');
+        showNotification('Prompt berhasil disalin ke clipboard!');
+    }
+
+    // =========================================================
+    // INITIALIZATION
+    // =========================================================
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize semua card selection
+        document.querySelectorAll('.modular-card').forEach(card => {
+            card.addEventListener('click', function() {
+                selectModularCard(this);
+            });
+        });
+        
+        // Thematic cards
+        document.querySelectorAll('.style-card[data-thematic]').forEach(card => {
+            card.addEventListener('click', function() {
+                const thematic = this.getAttribute('data-thematic');
+                selectThematic(this, thematic);
+            });
+        });
+        
+        // Ratio cards
+        document.querySelectorAll('.ratio-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const ratio = this.getAttribute('data-ratio');
+                selectRatio(this, ratio);
+            });
+        });
+
+        // Quality cards
+        document.querySelectorAll('.style-card[data-quality]').forEach(card => {
+            card.addEventListener('click', function() {
+                const quality = this.getAttribute('data-quality');
+                selectQualityPreset(this, quality);
+            });
+        });
+
+        // Camera angles cards
+        document.querySelectorAll('.modular-card[data-group="angle"]').forEach(card => {
+            card.addEventListener('click', function() {
+                const angle = this.getAttribute('data-value');
+                selectCameraAngle(this, angle);
+            });
+        });
+
+        // Default selections
+        document.querySelector('.style-card[data-thematic="epic-heroic"]').classList.add('selected');
+
+        document.getElementById('intensityValue').textContent = quantumIntensityValue;
+        document.getElementById('blendingValue').textContent = blendingIntensity;
+        document.getElementById('subjectWeightValue').textContent = subjectWeight;
+        document.getElementById('singleSubjectWeightValue').textContent = subjectWeight;
+        document.getElementById('sharpnessValue').textContent = sharpnessValue;
+        
+        // Initialize conflict detection system
+        initializeConflictDetection();
+        
+        // Jalankan conflict detection pertama kali
+        setTimeout(runConflictDetection, 1000);
+
+        // Test button untuk demo conflict detection
+        const testButton = document.createElement('button');
+        testButton.innerHTML = '🧪 TEST CONFLICT DETECTOR: Ketik "naga" dengan style Real Photography';
+        testButton.style.cssText = 'background: linear-gradient(45deg, var(--cyber), var(--danger)); color: white; border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; margin: 15px 0; font-weight: bold; width: 100%; font-size: 1em;';
+        testButton.onclick = function() {
+            document.getElementById('main-subject').value = 'Seekor naga besar dengan sayap lebar dan api';
+            selectedStyle = 'real-photography';
+            updateStyleSelection();
+            runConflictDetection();
+            showNotification("🧪 Test: Dragon + Real Photography = KONFLIK TERDETEKSI!");
+        };
+        
+        document.getElementById('conflict-detector-container').appendChild(testButton);
+    });
+
+</script>
+<!-- === BEGIN: Prompt Polisher Final v3.0 Injection (fixed - no duplication) === -->
+<script>
+(function(){
+  const MARKER = "===== PROMPT POLISHER v3.0 =====";
+
+  function buildMagicHeader(){
+    return [
+      MARKER,
+      "Kamu berperan sebagai sistem analisis dan perapih prompt AI profesional.",
+      "Ikuti semua instruksi di bawah secara ketat, tanpa improvisasi.",
+      "",
+      "🎯 TUGAS UTAMA:",
+      "- Rapikan dan optimalkan prompt tanpa mengubah makna atau arah artistik.",
+      "- Hapus pengulangan, sinonim ganda, atau tag berlebihan.",
+      "- Periksa dan perbaiki konflik (gaya, kamera, lighting, rasio, negative).",
+      "- Pertahankan tag teknis & parameter valid (--ar, --v, --style, --q, --s, seed).",
+      "- Jaga bahasa asli (ID tetap ID, EN tetap EN).",
+      "",
+      "📋 OUTPUT (ikuti format ini):",
+      "(A) Versi Ringkas — satu baris",
+      "(B) Versi Lengkap Terstruktur — subjek / deskripsi / gaya / lighting-camera / parameter",
+      "(C) Catatan Perbaikan (≤5 poin)",
+      "",
+      "CATATAN: Jangan tambahkan elemen baru; jika melanggar, ulangi sesuai instruksi.",
+      "===== end of polisher header =====",
+      ""
+    ].join("\n");
+  }
+
+  function getOutEl(){ return document.getElementById("promptOutput"); }
+
+  // remove existing appended block (marker-based)
+  function stripExistingAppend(txt){
+    if(!txt) return "";
+    const i = txt.indexOf(MARKER);
+    if(i > -1) return txt.slice(0, i).trim();
+    return txt.trim();
+  }
+
+  function appendMagic(){
+    const out = getOutEl();
+    if(!out) return;
+    const isTextarea = (out.tagName === "TEXTAREA");
+    const current = (isTextarea ? out.value : out.textContent) || "";
+    const base = stripExistingAppend(current);
+    const combined = base ? (base + "\n\n" + buildMagicHeader()) : buildMagicHeader();
+    if(isTextarea) out.value = combined; else out.textContent = combined;
+  }
+
+  // Try to wrap existing generator functions (non-destructive)
+  function wrap(fnName){
+    try{
+      const orig = window[fnName];
+      if(typeof orig === "function"){
+        window[fnName] = async function(){
+          const result = await orig.apply(this, arguments);
+          try { appendMagic(); } catch(e){ console.error("appendMagic failed:", e); }
+          return result;
+        };
+      }
+    }catch(e){ /* ignore */ }
+  }
+
+  // Fallback: attach to a button click if generator functions absent
+  function attachFallback(buttonId){
+    const btn = document.getElementById(buttonId);
+    if(btn) btn.addEventListener("click", () => setTimeout(appendMagic, 150));
+  }
+
+  window.addEventListener("DOMContentLoaded", function(){
+    // common function names used by your app (we attempt both)
+    wrap("generatePrompt");
+    wrap("generateUltimatePrompt");
+    // fallback: try attach to common generate button ids (if you know the id, we can add it)
+    attachFallback("generateButton");
+    // also try again shortly later (in case functions defined late)
+    setTimeout(()=>{ wrap("generatePrompt"); wrap("generateUltimatePrompt"); }, 600);
+  });
+})();
+</script>
+<!-- === END: Prompt Polisher Final v3.0 Injection (fixed) === -->
+</body>
+</html>
